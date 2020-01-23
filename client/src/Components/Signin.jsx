@@ -10,7 +10,7 @@ const Signin = () => {
 
     const signinForm = event => {
         event.preventDefault();
-        if (userEmail !== undefined && userEmail !== "") {
+        if (userEmail !== undefined && userEmail !== "" && userPass !== undefined && userPass !== "") {
             //handleSubmit(userEmail,userPass);
             setUserEmail("");
             setUserPass("");
@@ -26,7 +26,7 @@ const Signin = () => {
     };
 
     return (
-        <main>
+        <main id="signin">
             <header>
             </header>
             <section>

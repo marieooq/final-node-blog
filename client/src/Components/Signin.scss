@@ -1,9 +1,9 @@
 /**************************************************/
 
-$scroll-factor: 0.5;
+$scroll-factor_signin: 0.5;
 $background: #333;
 $header-height: 50px;
-$image: "https://images.unsplash.com/photo-1568774150938-0b42993fcef6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3900&q=80";
+$image_signin: "https://images.unsplash.com/photo-1568774150938-0b42993fcef6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3900&q=80";
 @import url(https://fonts.googleapis.com/css?family=Alegreya+Sans:100,300,400,500,700,800,900,500italic,400italic,100italic,900italic,300italic,700italic,800italic);
 
 
@@ -31,7 +31,7 @@ h1 {
   font-weight: 100;
 }
 
-main {
+main#signin {
   height: 100%;
   max-height: 100%;
   overflow-x: hidden;
@@ -42,13 +42,13 @@ main {
 
   header {
     height: 50vh;
-    background: url($image);
+    background: url($image_signin);
     background-size: cover;
     background-position: center center;
     position: relative;
     vertical-align: top;
     transform-origin: center top;
-    transform: translateZ(-#{$scroll-factor * 2}px) scale(1 + $scroll-factor * 2);
+    transform: translateZ(-#{$scroll-factor_signin * 2}px) scale(1 + $scroll-factor_signin * 2);
   }
 
   section {
