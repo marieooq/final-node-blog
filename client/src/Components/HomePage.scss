@@ -101,6 +101,20 @@ main {
                         .content_bottom{
                             position: absolute;
                             bottom: 0;
+                            margin-bottom: 15px;
+                            display: flex;
+
+                            .author_picture{
+                                width: 40px;
+                                height: 40px;
+                                background-color: #97C3C9;
+                                border-radius: 50%;
+                                margin-right: 10px;
+
+                                img{
+                                    width: 40px;
+                                }
+                            }
                         }
                     }
                 }
@@ -136,9 +150,21 @@ main {
                         width: 394px;
                         position: relative;
 
-                        .latest_article_content_bottom{
-                            position: absolute;
-                            bottom: 0;
+                        .latest_article_content_top{
+                            margin-bottom: 15px;
+                            display: flex;
+
+                            .author_picture{
+                                width: 40px;
+                                height: 40px;
+                                background-color: #97C3C9;
+                                border-radius: 50%;
+                                margin-right: 10px;
+
+                                img{
+                                    width: 40px;
+                                }
+                            }
                         }
                     }
                 }
