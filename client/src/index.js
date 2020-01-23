@@ -9,10 +9,10 @@ const Base = () => {
   return (
     <Router>
       <Route path="/" exact component={App} />
-      <Route path="/:id" exact component={Article} />
+      {/* <Route path="/:id" exact component={Article} />
       <Route path="/post" exact component={Post} />
       <Route path="/signin" exact component={Signin} />
-      <Route path="/signup" exact component={Signup} />
+      <Route path="/signup" exact component={Signup} /> */}
     </Router>
   );
 };
