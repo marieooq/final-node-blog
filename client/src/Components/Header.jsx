@@ -7,7 +7,7 @@ const Header =() =>{
         <nav>
             <div className="wrapper">
                 <img className="logo" src={bloggu_logo}/>
-                <div>Search</div>
+                <div>Login/ Sign Up</div>
             </div>
         </nav>
     );
