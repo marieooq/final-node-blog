@@ -6,7 +6,7 @@ const { signin, login } = require("../controller/user");
 // const { displayProfile } = require("../controller/user");
 
 router.post("/signup", signup);
-router.post("/signin", singin);
+router.post("/signin", signin);
 // router.post("/resister", resister);
 // router.get("/:username", displayProfile);
 module.exports = router;
