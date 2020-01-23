@@ -12,12 +12,11 @@ const postSchema = new mongoose.Schema(
     },
     userId: {
       type: String,
-      required: true,
-      unique: true
+      required: true
+      // unique: true
     },
     featuredImage: {
-      type: String,
-      required: true
+      type: String
     },
     category: {
       type: String,
