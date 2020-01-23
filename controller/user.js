@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const User = require("../model/user");
 
-exports.signin = async (req, res) => {
+exports.signup = async (req, res) => {
   const user = new User(req.body);
   try {
     if (!user) {
@@ -14,9 +14,9 @@ exports.signin = async (req, res) => {
   }
 };
 
-exports.login = async (req, res) => {
+exports.sginin = async (req, res) => {
   const user = await User.findOne({
-    userName: req.body.userName,
+    userName: req.body.email,
     password: req.body.password
   });
 
