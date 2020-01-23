@@ -6,8 +6,8 @@ const Header =() =>{
     return(
         <nav>
             <div className="wrapper">
-                <img className="logo" src={bloggu_logo}/>
-                <div>Login/ Sign Up</div>
+                <a href="/"><img className="logo" src={bloggu_logo}/></a>
+                <div><a href="/signin">Login</a>/ <a href="/signup">Sign Up</a></div>
             </div>
         </nav>
     );
