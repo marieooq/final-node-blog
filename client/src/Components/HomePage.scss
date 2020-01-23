@@ -1,0 +1,175 @@
+/**************************************************/
+
+$scroll-factor: 0.5;
+$background: #333;
+$header-height: 50px;
+$image: "https://images.unsplash.com/photo-1517918887569-428b360e7607?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2400&q=80";
+
+@import url(https://fonts.googleapis.com/css?family=Alegreya+Sans:100,300,400,500,700,800,900,500italic,400italic,100italic,900italic,300italic,700italic,800italic);
+
+
+/**************************************************/
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    color: rgb(31, 31, 31);
+    font-family: Alegreya Sans, serif;
+}
+
+h1 {
+    font-family: Alegreya Sans, serif;
+    color: #15d880;
+    font-size: 2.5rem;
+    font-weight: 100;
+}
+
+main {
+  height: 150vh;
+  max-height: 100%;
+  overflow-x: hidden;
+  perspective: 1px;
+  perspective-origin: center top;
+  transform-style: preserve-3d;
+//   font: 36px/1.6 Alegreya Sans, serif;
+
+  header {
+    height: 50vh;
+    background: url($image);
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    vertical-align: top;
+    transform-origin: center top;
+    transform: translateZ(-#{$scroll-factor * 2}px) scale(1 + $scroll-factor * 2);
+  }
+
+  section {
+    min-height: 200vh;
+    background: white;
+    transform: translateZ(0);
+    width: 100%;
+    color: rgb(31, 31, 31);
+    
+    .main_wrapper {
+        display: flex;
+        justify-content: center;
+
+        .article_wrapper{
+            margin-top: 30px;
+            align-items: center;
+            width: 994px;
+
+            .featured_articles{
+                color: rgb(31, 31, 31);
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: row;
+                justify-content: space-between;
+                width: 994px;
+                height: 524px;
+
+                .featured_article{
+                    display: flex;  
+                    justify-content: center;
+                    flex-direction: row;
+                    width: 490px;
+                    height: 247px;
+                    border: 1px solid #E5E5E5;
+
+                    .featured_image{
+                        width: 247px;
+                        height: 247px;
+                        background-size: cover;
+                        background-position: center center;
+                    }
+
+                    .featured_content{
+                        text-align: left;
+                        padding: 15px;
+                        width: 243px;
+                        position: relative;
+
+                        .content_bottom{
+                            position: absolute;
+                            bottom: 0;
+                            margin-bottom: 15px;
+                            display: flex;
+
+                            .author_picture{
+                                width: 40px;
+                                height: 40px;
+                                background-color: #97C3C9;
+                                border-radius: 50%;
+                                margin-right: 10px;
+
+                                img{
+                                    width: 40px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .latest_articles{
+                color: rgb(31, 31, 31);
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 994px;
+
+                .latest_article{
+                    display: flex;  
+                    justify-content: center;
+                    flex-direction: row;
+                    width: 100%;
+                    height: 280px;
+                    border: 1px solid #E5E5E5;
+                    margin-bottom: 20px;
+
+                    .latest_article_image{
+                        width: 600px;
+                        height: 280px;
+                        background-size: cover;
+                        background-position: center center;
+                    }
+
+                    .latest_article_content{
+                        text-align: left;
+                        padding: 15px;
+                        width: 394px;
+                        position: relative;
+
+                        .latest_article_content_top{
+                            margin-bottom: 15px;
+                            display: flex;
+
+                            .author_picture{
+                                width: 40px;
+                                height: 40px;
+                                background-color: #97C3C9;
+                                border-radius: 50%;
+                                margin-right: 10px;
+
+                                img{
+                                    width: 40px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+  }
+}
