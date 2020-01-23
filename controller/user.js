@@ -2,7 +2,13 @@ const mongoose = require("mongoose");
 const User = require("../model/user");
 
 exports.signup = async (req, res) => {
-  const user = new User(req.body);
+  console.log(req.body);
+  const user = new User({
+    userName: req.body.userName,
+    email: req.body.email,
+    password: req.body.password
+  });
+  console.log(user);
   try {
     if (!user) {
       return res.send("signin was failed");
@@ -14,11 +20,14 @@ exports.signup = async (req, res) => {
   }
 };
 
-exports.sginin = async (req, res) => {
+exports.signin = async (req, res) => {
+  console.log(req.body.email);
   const user = await User.findOne({
     email: req.body.email,
     password: req.body.password
   });
+
+  console.log(user);
 
   if (user) {
     // res.redirect("/");
