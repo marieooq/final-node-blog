@@ -60,7 +60,7 @@ const Signup = () => {
               <br />
               <input
                 type="password"
-                placeholder="Enter your Password"
+                placeholder="Re-enter your Password"
                 value={userPass}
                 onChange={e => handlePasswordChange(e.target.value)}
               />

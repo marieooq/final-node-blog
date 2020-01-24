@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Header from "./Header";
-import Navigation from "./Navigation";
-import "./Signin.scss";
+// import "./Signin.scss";
 import { api } from "../api";
 
 const Signin = () => {
@@ -32,9 +31,9 @@ const Signin = () => {
   };
 
   return (
-    <main>
-      <header></header>
-      <section>
+    <div className="signin_main">
+      <div className="signin_header"></div>
+      <div className="signin_section">
         <Header />
         <div className="main_wrapper">
           <form onSubmit={signinForm}>
@@ -57,8 +56,8 @@ const Signin = () => {
             <input type="submit" className="btn" value="Submit" />
           </form>
         </div>
-      </section>
-    </main>
+      </div>
+    </div>
   );
 };
 
