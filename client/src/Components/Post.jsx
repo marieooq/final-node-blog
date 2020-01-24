@@ -61,18 +61,20 @@ const Post = () => {
     const [postTitle, setTitle] = useState();
     const [postContent, setContent] = useState();
     const [category, setCategory] = React.useState('');
+    const [image, setImage] = React.useState('');
 
     const classes = useStyles();
 
     const postForm = async event => {
         event.preventDefault();
         if (postTitle !== undefined && postTitle !== "") {
-            //handleSubmit(userEmail,userPass);
             const post = await api.post("/post", {
+                // userId: localStorage.getItem("user", user.data.user),
                 title: postTitle,
-                content: postContent
+                content: postContent,
+                category: category,
+                featuredImage: image
             });
-            localStorage.setItem("post", post.data.post._id);
         }
     };
 
@@ -86,6 +88,10 @@ const Post = () => {
 
     const handleContentChange = value => {
         setContent(value);
+    };
+
+    const handleFeaturedImageChange = value => {
+        setImage(value);
     };
 
 
@@ -109,7 +115,6 @@ const Post = () => {
                                     <Grid container spacing={2}>
                                         <Grid item xs={12}>
                                             <TextField
-                                                autoComplete="title"
                                                 name="title"
                                                 required
                                                 fullWidth
@@ -131,6 +136,17 @@ const Post = () => {
                                                     {options}
                                                 </Select>
                                             </FormControl>
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                name="featuredImage"
+                                                required
+                                                fullWidth
+                                                id="featuredImage"
+                                                label="Featured Image URL"
+                                                autoFocus
+                                                onChange={e => handleFeaturedImageChange(e.target.value)}
+                                            />
                                         </Grid>
                                         <Grid item xs={12}>
                                             <TextField
