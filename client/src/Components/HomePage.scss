@@ -1,41 +1,40 @@
 /**************************************************/
 
-$scroll-factor: 0.5;
-$background: #333;
-$header-height: 50px;
-$image: "https://images.unsplash.com/photo-1517918887569-428b360e7607?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2400&q=80";
+// $scroll-factor: 0.5;
+// $background: #333;
+// $header-height: 50px;
+$image_home: "https://images.unsplash.com/photo-1517918887569-428b360e7607?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2400&q=80";
 
 /**************************************************/
 
 
-main {
+.home_main {
   height: 150vh;
   max-height: 100%;
   overflow-x: hidden;
   perspective: 1px;
   perspective-origin: center top;
   transform-style: preserve-3d;
-//   font: 36px/1.6 Alegreya Sans, serif;
 
-  header {
+  .home_header {
     height: 50vh;
-    background: url($image);
+    background: url($image_home);
     background-size: cover;
     background-position: center center;
     position: relative;
     vertical-align: top;
     transform-origin: center top;
-    transform: translateZ(-#{$scroll-factor * 2}px) scale(1 + $scroll-factor * 2);
+    transform: translateZ(-#{0.5 * 2}px) scale(1 + 0.5 * 2);
   }
 
-  section {
+  .home_section {
     min-height: 200vh;
     background: white;
     transform: translateZ(0);
     width: 100%;
     color: rgb(31, 31, 31);
     
-    .main_wrapper {
+    .home_main_wrapper {
         display: flex;
         justify-content: center;
 
@@ -43,7 +42,7 @@ main {
             text-decoration: underline;
         }
 
-        .article_wrapper{
+        .home_article_wrapper{
             margin-top: 30px;
             align-items: center;
             width: 994px;
@@ -65,11 +64,21 @@ main {
                     height: 247px;
                     border: 1px solid #E5E5E5;
 
+                    .child{
+                        overflow: hidden;
+                    }
+
+                    .child:hover .featured_image{
+                        transition: all .6s ease-out;
+                        transform: scale(1.2);
+                    }
+
                     .featured_image{
                         width: 247px;
                         height: 247px;
                         background-size: cover;
                         background-position: center center;
+                        transition: transform .6s;
                     }
 
                     .featured_content{
@@ -117,17 +126,21 @@ main {
                     border: 1px solid #E5E5E5;
                     margin-bottom: 20px;
 
+                    .child{
+                        overflow: hidden;
+                    }
+
+                    .child:hover .latest_article_image{
+                        // transition: all .6s ease-out;
+                        transform: scale(1.2);
+                    }
+
                     .latest_article_image{
                         width: 600px;
                         height: 280px;
                         background-size: cover;
                         background-position: center center;
-                        transition: transform .2s;
-                        overflow: hidden;
-
-                        &hover{
-                            transform: scale(.5);
-                        }
+                        transition: transform .6s;
                     }
 
                     .latest_article_content{

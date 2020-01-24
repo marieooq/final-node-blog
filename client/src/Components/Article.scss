@@ -1,8 +1,8 @@
 /**************************************************/
 
-$scroll-factor-: 0.5;
-$background: #333;
-$header-height: 50px;
+// $scroll-factor-: 0.5;
+// $background: #333;
+// $header-height: 50px;
 // $image: "https://images.unsplash.com/photo-1517918887569-428b360e7607?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2400&q=80";
 
 /**************************************************/
@@ -22,7 +22,7 @@ $header-height: 50px;
       width: 100%;
       color: rgb(31, 31, 31);
   
-      .main_wrapper {
+      .article_main_wrapper {
         display: flex;
         justify-content: center;
 
@@ -34,10 +34,6 @@ $header-height: 50px;
             margin-top: 30px;
             align-items: center;
             width: 994px;
-
-            a{
-                color: blue
-            }
 
             .article_title{
                 margin-top: 50px;
@@ -58,6 +54,10 @@ $header-height: 50px;
                 align-items: center;
                 width: 100%;
                 position: relative;
+
+                .author_name > a {
+                    color: blue;
+                }
 
                 .author_picture{
                     width: 40px;

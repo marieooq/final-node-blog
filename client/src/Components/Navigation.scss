@@ -5,4 +5,15 @@
   justify-content: space-between;
   align-items: center;
   color: rgb(204, 177, 89);
+
+  .category{
+
+    a {
+        color: rgb(204, 177, 89);
+      
+        &hover {
+          text-decoration: underline;
+        }
+      }
+  }
 }
