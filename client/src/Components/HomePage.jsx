@@ -36,7 +36,7 @@ const featured_articles = articles.map(entry => (
       <h3>{entry.title}</h3>
       <div className="content_bottom">
         <div className="author_picture"><img src="" /></div>
-        <div>{entry.author} <br/> {entry.published_date}</div>
+        <div><a href={`/u/${entry.author}`}>{entry.author}</a> <br/> {entry.published_date}</div>
       </div>
     </div>
   </div>
@@ -48,7 +48,7 @@ const latest_articles = articles.map(entry => (
     <div className="latest_article_content">
       <div className="latest_article_content_top">
         <div className="author_picture"><img src="" /></div>
-        <div>{entry.author} <br/> {entry.published_date}</div>
+        <div><a href={`/u/${entry.author}`}>{entry.author}</a> <br/> {entry.published_date}</div>
       </div>
       <h3>{entry.title}</h3>
       <p>{entry.content}</p>

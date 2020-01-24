@@ -48,8 +48,7 @@ const user_articles = articles.map(entry => (
         <div className="user_article_image" style={{ backgroundImage: `url("${entry.image}")`, height: '280px' }}></div>
         <div className="user_article_content">
             <div className="user_article_content_top">
-                <div className="author_picture"><img src="" /></div>
-                <div>{entry.author} <br /> {entry.published_date}</div>
+                {entry.published_date}
             </div>
             <h3>{entry.title}</h3>
             <p>{entry.content}</p>

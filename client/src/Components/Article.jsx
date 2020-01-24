@@ -57,7 +57,7 @@ const Article = () => {
                         <h1 className="article_title">{articleData.title}</h1>
                         <div className="author">
                             <div className="author_picture"><img src="" /></div>
-                            <div><a href="">{articleData.author}</a> - {articleData.published_date}</div>
+                            <div><a href={`/u/${articleData.author}`}>{articleData.author}</a> - {articleData.published_date}</div>
 
                             <div className="article_cat">{articleData.category}</div>
                         </div>
