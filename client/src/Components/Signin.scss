@@ -4,34 +4,10 @@ $scroll-factor_signin: 0.5;
 $background: #333;
 $header-height: 50px;
 $image_signin: "https://images.unsplash.com/photo-1568774150938-0b42993fcef6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3900&q=80";
-@import url(https://fonts.googleapis.com/css?family=Alegreya+Sans:100,300,400,500,700,800,900,500italic,400italic,100italic,900italic,300italic,700italic,800italic);
-
 
 /**************************************************/
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  color: rgb(31, 31, 31);
-  font-family: Alegreya Sans, serif;
-}
-
-h1 {
-  font-family: Alegreya Sans, serif;
-  color: #15d880;
-  font-size: 2.5rem;
-  font-weight: 100;
-}
-
-main#signin {
+.signin_main {
   height: 100%;
   max-height: 100%;
   overflow-x: hidden;
@@ -40,7 +16,7 @@ main#signin {
   transform-style: preserve-3d;
   //   font: 36px/1.6 Alegreya Sans, serif;
 
-  header {
+  .signin_header {
     height: 50vh;
     background: url($image_signin);
     background-size: cover;
@@ -51,7 +27,7 @@ main#signin {
     transform: translateZ(-#{$scroll-factor_signin * 2}px) scale(1 + $scroll-factor_signin * 2);
   }
 
-  section {
+  .signin_section {
     min-height: 100vh;
     background: white;
     transform: translateZ(0);

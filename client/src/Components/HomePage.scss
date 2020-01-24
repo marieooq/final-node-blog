@@ -5,32 +5,8 @@ $background: #333;
 $header-height: 50px;
 $image: "https://images.unsplash.com/photo-1517918887569-428b360e7607?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2400&q=80";
 
-@import url(https://fonts.googleapis.com/css?family=Alegreya+Sans:100,300,400,500,700,800,900,500italic,400italic,100italic,900italic,300italic,700italic,800italic);
-
-
 /**************************************************/
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
-
-html,
-body {
-    margin: 0;
-    padding: 0;
-    color: rgb(31, 31, 31);
-    font-family: Alegreya Sans, serif;
-}
-
-h1 {
-    font-family: Alegreya Sans, serif;
-    color: #15d880;
-    font-size: 2.5rem;
-    font-weight: 100;
-}
 
 main {
   height: 150vh;
