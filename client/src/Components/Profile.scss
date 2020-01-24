@@ -1,8 +1,8 @@
 /**************************************************/
 
-$scroll-factor-: 0.5;
-$background: #333;
-$header-height: 50px;
+// $scroll-factor-: 0.5;
+// $background: #333;
+// $header-height: 50px;
 // $image: "https://images.unsplash.com/photo-1517918887569-428b360e7607?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2400&q=80";
 
 /**************************************************/
@@ -43,6 +43,10 @@ $header-height: 50px;
                 border-bottom: 1px solid rgb(224, 224, 224);
             }
 
+            .fa{
+                margin: 0 5px;
+            }
+
             .profile_articles{
                 color: rgb(31, 31, 31);
                 display: flex;
@@ -60,11 +64,21 @@ $header-height: 50px;
                     border: 1px solid #E5E5E5;
                     margin-bottom: 20px;
 
+                    .child{
+                        overflow: hidden;
+                    }
+
+                    .child:hover .user_article_image{
+                        transition: all .6s ease-out;
+                        transform: scale(1.2);
+                    }
+
                     .user_article_image{
                         width: 600px;
                         height: 280px;
                         background-size: cover;
                         background-position: center center;
+                        transition: transform .6s;
                     }
 
                     .user_article_content{

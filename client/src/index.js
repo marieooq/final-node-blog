@@ -11,11 +11,6 @@ import Profile from "./Components/Profile";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCheckSquare, faCoffee } from '@fortawesome/free-solid-svg-icons'
- 
-library.add(faCheckSquare, faCoffee)
-
 const Base = () => {
   return (
     <Router>

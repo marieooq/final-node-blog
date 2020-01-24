@@ -1,5 +1,4 @@
 import React from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import "./Profile.scss";
 
 import Header from "./Header";
@@ -49,12 +48,12 @@ const articles = [{
 
 const user_articles = articles.map(entry => (
     <div className="user_article" key={entry.title}>
-        <a href={`/article/${entry.id}`}><div className="user_article_image" style={{ backgroundImage: `url("${entry.featuredImage}")`, height: '280px' }}></div></a>
+        <div className="child"><a href={`/article/${entry._id}`}><div className="user_article_image" style={{ backgroundImage: `url("${entry.featuredImage}")`, height: '280px' }}></div></a></div>
         <div className="user_article_content">
             <div className="user_article_content_top">
                 {entry.published_date}
             </div>
-            <h3><a href={`/article/${entry.id}`}>{entry.title}</a></h3>
+            <h3><a href={`/article/${entry._id}`}>{entry.title}</a></h3>
             <p>{entry.content}</p>
         </div>
     </div>
@@ -72,7 +71,10 @@ const Profile = () => {
                     <div className="profile_article_wrapper">
                         <Navigation />
 
-                        <div className="create_article_section"> <FontAwesomeIcon icon="plus-circle" /> <a href="/post">Create New Post</a></div>
+                        <div className="create_article_section"> 
+                            <i className="fa fa-plus-circle"></i>
+                            <a href="/post">Create New Post</a>
+                        </div>
 
                         <div className="profile_articles">
                             {user_articles}

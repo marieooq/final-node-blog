@@ -35,11 +35,11 @@ const articles = [{
 
 const featured_articles = articles.map(entry => (
   <div className="featured_article" key={entry.title}>
-    <a href={`/article/${entry.id}`}><div className="featured_image" style={{backgroundImage : `url("${entry.image}")`, height: '247px' }}></div></a>
+    <div className="child"><a href={`/article/${entry._id}`}><div className="featured_image" style={{backgroundImage : `url("${entry.image}")`, height: '247px' }}></div></a></div>
     <div className="featured_content">
-      <h3><a href={`/article/${entry.id}`}>{entry.title}</a></h3>
+      <h3><a href={`/article/${entry._id}`}>{entry.title}</a></h3>
       <div className="content_bottom">
-        <div className="author_picture"><img src="" /></div>
+        <a href={`/u/${entry.author}`}><div className="author_picture"><img src="" /></div></a>
         <div><a href={`/u/${entry.author}`}>{entry.author}</a> <br/> {entry.published_date}</div>
       </div>
     </div>
@@ -48,13 +48,13 @@ const featured_articles = articles.map(entry => (
 
 const latest_articles = articles.map(entry => (
   <div className="latest_article" key={entry.title}>
-    <a href={`/article/${entry.id}`}><div className="latest_article_image" style={{backgroundImage : `url("${entry.image}")`, height: '280px' }}></div></a>
+    <div className="child"><a href={`/article/${entry._id}`}><div className="latest_article_image" style={{backgroundImage : `url("${entry.image}")`, height: '280px' }}></div></a></div>
     <div className="latest_article_content">
       <div className="latest_article_content_top">
-        <div className="author_picture"><img src="" /></div>
+        <a href={`/u/${entry.author}`}><div className="author_picture"><img src="" /></div></a>
         <div><a href={`/u/${entry.author}`}>{entry.author}</a> <br/> {entry.published_date}</div>
       </div>
-      <h3><a href={`/article/${entry.id}`}>{entry.title}</a></h3>
+      <h3><a href={`/article/${entry._id}`}>{entry.title}</a></h3>
       <p>{entry.content}</p>
     </div>
   </div>
@@ -62,14 +62,14 @@ const latest_articles = articles.map(entry => (
 
 const HomePage = () => {
   return (
-    <main>
-      <header>
-      </header>
-      <section>
+    <div className="home_main">
+      <div className="home_header">
+      </div>
+      <div className="home_section">
         <Header />
-        <div className="main_wrapper">
+        <div className="home_main_wrapper">
           
-          <div className="article_wrapper">
+          <div className="home_article_wrapper">
             <Navigation />
             <div className="featured_articles">
               {featured_articles}
@@ -79,8 +79,8 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </div>
   );
 }
 

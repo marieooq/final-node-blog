@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Header from "./Header";
 import Navigation from "./Navigation";
-import "./Signin.scss";
+import "./Signup.scss";
 import { api } from "../api";
 
 const Signup = () => {
@@ -37,16 +37,16 @@ const Signup = () => {
   };
 
   return (
-    <main>
-      <header></header>
-      <section>
+    <div className="signup_main">
+      <div className="signup_header"></div>
+      <div className="signup_section">
         <Header />
-        <div className="main_wrapper">
+        <div className="signup_main_wrapper">
           <form onSubmit={signupForm}>
             <div className="group">
               <input
                 type="text"
-                placeholder="Enter yourname"
+                placeholder="Enter your name"
                 value={userName}
                 onChange={e => handleNameChange(e.target.value)}
               />
@@ -60,7 +60,7 @@ const Signup = () => {
               <br />
               <input
                 type="password"
-                placeholder="Re-enter your Password"
+                placeholder="Enter your Password"
                 value={userPass}
                 onChange={e => handlePasswordChange(e.target.value)}
               />
@@ -69,8 +69,8 @@ const Signup = () => {
             <input type="submit" className="btn" value="Submit" />
           </form>
         </div>
-      </section>
-    </main>
+      </div>
+    </div>
   );
 };
 
