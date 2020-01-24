@@ -1,0 +1,124 @@
+/**************************************************/
+  
+$image_signin: "https://images.unsplash.com/photo-1579258151288-d08bd3f91e88?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3890&q=80";
+
+/**************************************************/
+
+.signup_main {
+  height: 100%;
+  max-height: 100%;
+  overflow-x: hidden;
+  perspective: 1px;
+  perspective-origin: center top;
+  transform-style: preserve-3d;
+
+  .signup_header {
+    height: 50vh;
+    background: url($image_signin);
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    vertical-align: top;
+    transform-origin: center top;
+    transform: translateZ(-#{0.5 * 2}px) scale(1 + 0.5 * 2);
+  }
+
+  .signup_section {
+    min-height: 100vh;
+    background: white;
+    transform: translateZ(0);
+    width: 100%;
+    color: rgb(31, 31, 31);
+
+    .signup_main_wrapper {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  /***********************************************/
+
+  .btn {
+    // font-family: "Fredoka One", cursive;
+    background: rgb(19, 19, 19);
+    font-size: 1.3rem;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 15px;
+    margin: 5px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    -webkit-transition: 0.25s ease-in-out;
+    -moz-transition: 0.25s ease-in-out;
+    -o-transition: 0.25s ease-in-out;
+    transition: 0.25s ease-in-out;
+  }
+
+  .subbtn {
+    font-size: 1.1rem;
+  }
+
+  .btn:hover {
+    transform: scale(1.1);
+  }
+
+  .btn:focus {
+    outline: 0;
+  }
+
+  /*************************************/
+
+  form {
+    width: 380px;
+    margin-bottom: 5px;
+    padding: 6em 2em 2em 2em;
+  }
+
+  .group {
+    position: relative;
+    margin-bottom: 15px;
+  }
+
+  input {
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    -webkit-appearance: none;
+    display: block;
+    background: none;
+    color: #3d3d3d;
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #757575;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  /* Label */
+
+  label {
+    color: #999;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: all 0.2s ease;
+  }
+
+  /* active */
+
+  input:focus ~ label,
+  input.used ~ label {
+    top: -20px;
+    transform: scale(0.75);
+    left: -2px;
+    /* font-size: 14px; */
+    color: #4a89dc;
+  }
+}
