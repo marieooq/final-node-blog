@@ -39,6 +39,10 @@ main {
         display: flex;
         justify-content: center;
 
+        a:hover{
+            text-decoration: underline;
+        }
+
         .article_wrapper{
             margin-top: 30px;
             align-items: center;
@@ -118,6 +122,12 @@ main {
                         height: 280px;
                         background-size: cover;
                         background-position: center center;
+                        transition: transform .2s;
+                        overflow: hidden;
+
+                        &hover{
+                            transform: scale(.5);
+                        }
                     }
 
                     .latest_article_content{
