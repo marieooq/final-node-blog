@@ -1,0 +1,44 @@
+/**************************************************/
+
+$scroll-factor-: 0.5;
+$background: #333;
+$header-height: 50px;
+// $image: "https://images.unsplash.com/photo-1517918887569-428b360e7607?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2400&q=80";
+
+/**************************************************/
+
+.post_main {
+    height: 100%;
+    max-height: 100%;
+    overflow-x: hidden;
+    perspective: 1px;
+    perspective-origin: center top;
+    transform-style: preserve-3d;
+  
+    .post_section {
+      min-height: 100vh;
+      background: white;
+      transform: translateZ(0);
+      width: 100%;
+      color: rgb(31, 31, 31);
+  
+      .post_main_wrapper {
+        display: flex;
+        justify-content: center;
+
+        a:hover{
+            text-decoration: underline;
+        }
+
+        .post_article_wrapper{
+            margin-top: 30px;
+            align-items: center;
+            width: 994px;
+
+            a{
+                color: blue
+            }           
+        }
+      }
+    }
+  }
