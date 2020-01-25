@@ -97,12 +97,20 @@
   background-color: #fafafa;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
   .wrapper {
     margin-top: 30px;
     align-items: center;
     width: 500px;
   }
+
+  footer{
+        width: 100%;
+        padding: 50px;
+        text-align: center;
+    }
 
   /*************************************/
 

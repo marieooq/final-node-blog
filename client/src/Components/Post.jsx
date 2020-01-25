@@ -180,6 +180,7 @@ const Post = () => {
                         </Container>
                     </div>
                 </div>
+                <footer>&copy; Copyright 2020. Team C</footer>
             </div>
         </div>
     )

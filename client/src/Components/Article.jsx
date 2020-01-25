@@ -116,6 +116,7 @@ const Article = (userID) => {
                     Comments<br />
                     <hr/>
                 </div>
+                <footer>&copy; Copyright 2020. Team C</footer>
 
             </div>
         </>

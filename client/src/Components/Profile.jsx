@@ -89,6 +89,8 @@ const Profile = () => {
 
                     </div>
                 </div>
+                <br/><br/><br/><br/><br/><br/>
+                <footer>&copy; Copyright 2020. Team C</footer>
             </div>
         </div>
     );
