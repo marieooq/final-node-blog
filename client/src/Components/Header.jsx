@@ -23,7 +23,7 @@ const Header = () => {
             </div>
           ) : (
             <div>
-              {user.userName} / <Link to="/post">Post</Link>
+              <Link className="header_link" to={`/u/${user.userName}`}>{user.userName}</Link> / <Link className="header_link" to="/post">Create a New Post</Link>
             </div>
           )}
         </div>
