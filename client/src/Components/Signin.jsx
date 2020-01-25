@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Signin = () => {
+const Signin = props => {
   const [userEmail, setUserEmail] = useState();
   const [userPass, setUserPass] = useState();
 
@@ -47,6 +47,7 @@ const Signin = () => {
         password: userPass
       });
       localStorage.setItem("user", JSON.stringify(user.data.user));
+      props.history.push("/");
     }
   };
 

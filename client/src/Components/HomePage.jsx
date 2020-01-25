@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import Navigation from "./Navigation";
 import { api } from "../api";
@@ -22,15 +22,12 @@ const HomePage = () => {
   }, []);
 
   // console.log(articleData.data);
-  console.log(articleData);
   return (
     <div className="home_main">
-      <div className="home_header">
-      </div>
+      <div className="home_header"></div>
       <div className="home_section">
         <Header />
         <div className="home_main_wrapper">
-          
           <div className="home_article_wrapper">
             <Navigation />
             <div className="featured_articles">
@@ -47,6 +44,6 @@ const HomePage = () => {
       </div>
     </div>
   );
-}
+};
 
 export default HomePage;

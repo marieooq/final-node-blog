@@ -1,14 +1,19 @@
 import React from "react";
 import "./Header.scss";
 import bloggu_logo from "../images/bloggu_logo.png";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
-const Header = () => {
+const Header = props => {
+  let history = props.history;
+  const handleClick = () => {
+    localStorage.removeItem("user");
+    history.push("/");
+  };
+
   let user;
   if (localStorage.getItem("user")) {
     user = JSON.parse(localStorage.getItem("user"));
   }
-  console.log(user);
   return (
     <nav>
       <div className="wrapper">
@@ -18,12 +23,15 @@ const Header = () => {
         <div>
           {user === undefined ? (
             <div>
-              <Link to="/signin">Login</Link> /{" "}
+              <Link to="/signin">Login</Link> /
               <Link to="/signup">Register</Link>
             </div>
           ) : (
             <div>
-              <Link className="header_link" to={`/u/${user.userName}`}>{user.userName}</Link> / <Link className="header_link" to="/post">Create a New Post</Link>
+              <Link className="header_link" to={`/u/${user.userName}`}>
+                {user.userName}
+              </Link>{" "}
+              / <button onClick={handleClick}>Signout</button>
             </div>
           )}
         </div>
@@ -32,4 +40,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default withRouter(Header);
