@@ -11,9 +11,9 @@ router.get("/", getAllPosts);
 
 router.get("/:articleId", getPost);
 
-router.post("/edit/:articleId", editPost);
+router.patch("/edit/:articleId", editPost);
 
-router.post("/delete/:articleId", deletePost);
+router.delete("/delete/:articleId", deletePost);
 
 router.post("/post", post);
 
