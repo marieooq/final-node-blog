@@ -7,31 +7,34 @@ import Header from "./Header";
 import Navigation from "./Navigation";
 
 const Article = ({ match }) => {
-    console.log(match.params.id);
     const [response, setResponse] = useState();
     const [articleData, setArticleData] = useState([]);
     const [usersData, setUsersData] = useState([]);
 
-    useEffect(async () => {
-        const article = await api.get("/"+match.params.id);
-        // console.log("User's articles: ", article);
-        setArticleData(article.data.article);
 
-        const users = await api.get("/users");
-        // console.log("users: ", users.data.users);
-        setUsersData(users.data.users);
+    useEffect(() => {
+        async function fetchArticle() {
+            const article = await api.get("/" + match.params.id);
+            setArticleData(article.data.article);
+        }
+        fetchArticle();
+
+        async function fetchUsers() {
+            const users = await api.get("/users");
+            setUsersData(users.data.users);
+        }
+        fetchUsers();
     }, []);
 
     const findUserName = (id) => {
         let userName;
         usersData.map(entry => {
-            if(entry._id === id) userName = entry.firstName +" "+entry.lastName;
+            if (entry._id === id) userName = entry.firstName + " " + entry.lastName;
         });
         return userName;
     }
 
     const responseForm = async event => {
-        console.log("clicked");
         event.preventDefault();
         if (response !== undefined && response !== "") {
             const user = await api.post("/comment", {

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./Profile.scss";
 import { api } from "../api";
 
@@ -21,9 +21,12 @@ const profileHeaderStyle = {
 const Profile = () => {
     const [articlesData, setArticlesData] = useState([]);
 
-    useEffect(async () => {
-        const articles = await api.get("/");
-        setArticlesData(articles.data.articles);
+    useEffect(() => {
+        async function fetchArticles() {
+            const articles = await api.get("/");
+            setArticlesData(articles.data.articles);
+        }
+        fetchArticles();
     }, []);
 
     return (
