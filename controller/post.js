@@ -28,6 +28,17 @@ exports.getPostsByUser = async (req, res) => {
   }
 };
 
+exports.getPostsByCategory = async (req, res) => {
+  console.log("params = ", req.params.category);
+  try {
+    const articles = await Post.find( { category: req.params.category } );
+    return res.status(201).send({ articles });
+  } catch (e) {
+    console.log("what is e? ",e)
+    return res.status(400).send(e);
+  }
+};
+
 exports.editPost = async (req, res) => {
   try {
     const article = await Post.findByIdAndUpdate(

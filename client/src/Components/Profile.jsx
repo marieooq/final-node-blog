@@ -49,10 +49,10 @@ const Profile = ({ match }) => {
 
                         <div className="create_article_section">
                             <div><h3>{userData.firstName}'s Posts</h3></div>
-                            <div>
+                            {/* <div>
                                 <i className="fa fa-plus-circle"></i>
                                 <a href="/post">Create New Post</a>
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className="profile_articles">

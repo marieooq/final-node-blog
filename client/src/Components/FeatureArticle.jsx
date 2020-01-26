@@ -10,7 +10,17 @@ const FeatureArticle = (props) => {
             if(entry._id === id) userName = entry.firstName +" "+entry.lastName;
         });
         return userName;
-    }
+    };
+
+    const findUserPic = (id) => {
+        let displayPic;
+        props.user.map(entry => {
+            if(entry._id === id) {
+                displayPic = entry.displayPicture;
+            }
+        });
+        return displayPic;
+    };
 
     return (
         props.data.slice(0, 4).map(entry => (
@@ -19,7 +29,7 @@ const FeatureArticle = (props) => {
                 <div className="featured_content">
                     <h3><a href={`/article/${entry._id}`}>{entry.title}</a></h3>
                     <div className="content_bottom">
-                        <a href={`/u/${entry.userId}`}><div className="author_picture"><img src="" /></div></a>
+                        <a href={`/u/${entry.userId}`}><div className="author_picture" style={{ backgroundImage: `url("${findUserPic(entry.userId)}")`, height: '40px' }}></div></a>
                         <div><a href={`/u/${entry.userId}`}>{findUserName(entry.userId)}</a> <br /> <Moment date={entry.createdAt} format="YYYY/MM/DD" /></div>
                     </div>
                 </div>
