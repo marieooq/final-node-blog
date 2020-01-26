@@ -19,6 +19,15 @@ exports.getPost = async (req, res) => {
   }
 };
 
+exports.getPostsByUser = async (req, res) => {
+  try {
+    const articles = await Post.find( { userId: req.params.userId } );
+    return res.status(201).send({ articles });
+  } catch (e) {
+    return res.status(400).send(e);
+  }
+};
+
 exports.editPost = async (req, res) => {
   try {
     const article = await Post.findByIdAndUpdate(
