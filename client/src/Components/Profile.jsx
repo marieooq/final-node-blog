@@ -10,15 +10,20 @@ const Profile = ({ match }) => {
     const [articlesData, setArticlesData] = useState([]);
     const [userData, setUserData] = useState([]);
 
+    let user;
+    if (localStorage.getItem("user")) {
+        user = JSON.parse(localStorage.getItem("user"));
+    }
+
     useEffect(() => {
         async function fetchArticles() {
-            const articles = await api.get("/postByUser/"+ match.params.userid);
+            const articles = await api.get("/postByUser/" + match.params.userid);
             setArticlesData(articles.data.articles);
         }
         fetchArticles();
 
         async function fetchUser() {
-            const user = await api.get("/user/"+ match.params.userid);
+            const user = await api.get("/user/" + match.params.userid);
             setUserData(user.data.user);
         }
         fetchUser();
@@ -49,15 +54,19 @@ const Profile = ({ match }) => {
 
                         <div className="create_article_section">
                             <div><h3>{userData.firstName}'s Posts</h3></div>
-                            {/* <div>
-                                <i className="fa fa-plus-circle"></i>
-                                <a href="/post">Create New Post</a>
-                            </div> */}
+                            {user._id != userData._id ? (
+                                <div>
+                                </div>
+                            ) : (
+                                <div>
+                                    <i className="fa fa-plus-circle"></i>
+                                    <a href="/post">Create New Post</a>
+                                </div>
+                            )}
                         </div>
 
                         <div className="profile_articles">
                             <UserArticles data={articlesData} />
-                            {/* {user_articles} */}
                         </div>
 
                     </div>
