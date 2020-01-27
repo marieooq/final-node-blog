@@ -11,17 +11,20 @@ const HomePage = () => {
   const [articleData, setArticleData] = useState([]);
   const [usersData, setUsersData] = useState([]);
 
-  useEffect(async () => {
-    const articles = await api.get("/");
-    // console.log("articles: ", articles);
-    setArticleData(articles.data.articles);
+  useEffect(() => {
+    async function fetchArticles() {
+      const articles = await api.get("/");
+      setArticleData(articles.data.articles);
+    }
+    fetchArticles();
 
-    const users = await api.get("/users");
-    // console.log("users: ", users.data.users);
-    setUsersData(users.data.users);
+    async function fetchUsers() {
+      const users = await api.get("/users");
+      setUsersData(users.data.users);
+    }
+    fetchUsers();
   }, []);
 
-  // console.log(articleData.data);
   return (
     <div className="home_main">
       <div className="home_header"></div>
@@ -32,7 +35,6 @@ const HomePage = () => {
             <Navigation />
             <div className="featured_articles">
               <FeatureArticle data={articleData} user={usersData} />
-              {/* {featured_articles} */}
             </div>
             <div className="latest_articles">
               <LatestArticle data={articleData} user={usersData} />
