@@ -34,22 +34,20 @@ exports.getPostsByCategory = async (req, res) => {
     const articles = await Post.find( { category: req.params.category } );
     return res.status(201).send({ articles });
   } catch (e) {
-    console.log("what is e? ",e)
     return res.status(400).send(e);
   }
 };
 
 exports.editPost = async (req, res) => {
-  console.log("editPost!!!");
   try {
-    const article = await Post.findOneAndUpdate(
-      { _id: req.params.articleId },
+    const article = await Post.findByIdAndUpdate(
+      { _id: req.body._id },
       {
         $set: {
           title: req.body.title,
           content: req.body.content,
           userId: req.body.userId,
-          featuredImage: req.body.image,
+          featuredImage: req.body.featuredImage,
           category: req.body.category
         }
       }

@@ -54,7 +54,7 @@ const Profile = ({ match }) => {
 
                         <div className="create_article_section">
                             <div><h3>{userData.firstName}'s Posts</h3></div>
-                            {user._id != userData._id ? (
+                            {user._id !== userData._id ? (
                                 <div>
                                 </div>
                             ) : (

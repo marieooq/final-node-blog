@@ -19,7 +19,7 @@ import Header from "./Header";
 
 const postHeaderStyle = {
     height: '50vh',
-    background: `url("https://images.unsplash.com/photo-1573718893672-86144926f4fb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3900&q=80")`,
+    backgroundImage: `url("https://images.unsplash.com/photo-1573718893672-86144926f4fb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3900&q=80")`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     position: 'relative',

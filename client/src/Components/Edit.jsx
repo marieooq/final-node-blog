@@ -14,6 +14,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { withRouter } from "react-router-dom";
 
 import Header from "./Header";
 
@@ -45,7 +46,7 @@ const options = categoriesArr.map(cat =>(
     <MenuItem value={cat}>{cat}</MenuItem>
 ));
 
-const Edit = ({match}) => {
+const Edit = ({match, history}) => {
     const [postTitle, setTitle] = useState();
     const [postContent, setContent] = useState();
     const [category, setCategory] = React.useState('');
@@ -68,27 +69,33 @@ const Edit = ({match}) => {
 
     const postForm = async event => {
         event.preventDefault();
-        
-        // const edit = await api.post("/update", data);
-        await api.put("/edit", {
+        let data = {
             _id: articleData._id,
             title: postTitle,
             content: postContent,
             category: category,
             featuredImage: image,
             userId: articleData.userId
-        })
-            .then(function (response) {
-                console.log("RRRRR = ",response);
+        }
+        
+        const edit = await api.post("/update", {
+            _id: articleData._id,
+            title: postTitle,
+            content: postContent,
+            category: category,
+            featuredImage: image,
+            userId: articleData.userId
+        }).then(function (response) {
+                history.push("/article/"+articleData._id);
             })
             .catch(function (error) {
-                console.log("EEEEE = ",error);
+                    console.log(error);            
             });
     };
 
     const postHeaderStyle = {
         height: '50vh',
-        background: `url("${articleData.featuredImage}")`,
+        backgroundImage: `url("${articleData.featuredImage}")`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         position: 'relative',
@@ -122,6 +129,7 @@ const Edit = ({match}) => {
                                                 required
                                                 fullWidth
                                                 id="title"
+                                                variant="filled"
                                                 value={postTitle}
                                                 onChange={e => setTitle(e.target.value)}
                                             />
@@ -134,6 +142,7 @@ const Edit = ({match}) => {
                                                     id="category-select"
                                                     selectedValue={category}
                                                     value={category}
+                                                    variant="filled"
                                                     onChange={e => setCategory(e.target.value)}
                                                 >
                                                     {options}
@@ -189,7 +198,7 @@ const Edit = ({match}) => {
     )
 };
 
-export default Edit;
+export default withRouter(Edit);
 
 
 
