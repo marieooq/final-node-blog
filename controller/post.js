@@ -83,8 +83,8 @@ exports.post = async (req, res) => {
   const post = new Post({
     title: req.body.title,
     content: req.body.content,
-    userId: "002",
-    featuredImage: req.body.image,
+    userId: req.body.userId,
+    featuredImage: req.body.featuredImage,
     category: req.body.category
   });
   try {
