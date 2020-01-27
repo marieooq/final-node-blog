@@ -31,7 +31,7 @@ const Header = props => {
               <Link className="header_link" to={`/u/${user._id}`}>
                 {user.userName}
               </Link>{" "}
-              / <button onClick={handleClick}>Signout</button>
+              / <a onClick={handleClick}>Signout</a>
             </div>
           )}
         </div>

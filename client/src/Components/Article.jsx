@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./Article.scss";
 import { api } from "../api";
 import Moment from 'react-moment';
+import { Link, withRouter } from "react-router-dom";
 
 import Header from "./Header";
 import Navigation from "./Navigation";
 
-const Article = ({ match }) => {
+const Article = ({ match, history }) => {
     const [response, setResponse] = useState();
     const [articleData, setArticleData] = useState([]);
     const [usersData, setUsersData] = useState([]);
@@ -54,10 +55,20 @@ const Article = ({ match }) => {
             const user = await api.post("/comment", {
                 comment: response
             });
-            // localStorage.setItem("user", user.data.user._id);
 
             setResponse("");
         }
+    };
+
+    const deleteArticle = async event => {
+        event.preventDefault();
+        const deleteArticle = await api.delete("/delete/"+match.params.id )
+            .then(function (response) {
+                history.push("/u/"+user._id);
+            })
+            .catch(function (error) {
+                console.log(error);            
+            });
     };
 
     const articleHeaderStyle = {
@@ -100,7 +111,7 @@ const Article = ({ match }) => {
                                             <a href={`/edit/${articleData._id}`}> Edit Post</a>
                                             &nbsp;&nbsp;/&nbsp;&nbsp;
                                             <i className="fa fa-trash-alt"></i>
-                                            <a href={`/delete/${articleData._id}`}> Delete Post</a>
+                                            <a onClick={deleteArticle}>Delete Post</a>
                                         </div>
                                     )}
                                 </div>
@@ -113,7 +124,7 @@ const Article = ({ match }) => {
                             </div>
 
                             <div className="article_likes">
-                                <h3><i className="far fa-heart"></i> -Like goes here-</h3>
+                                <h3><i className="far fa-heart"></i> 0</h3>
                             </div>
                         </div>
                     </div>
@@ -148,4 +159,4 @@ const Article = ({ match }) => {
     );
 };
 
-export default Article;
+export default withRouter(Article);

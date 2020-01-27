@@ -61,7 +61,17 @@ exports.editPost = async (req, res) => {
 
 exports.deletePost = async (req, res) => {
   try {
-    const article = await Post.findByIdAndDelete({ _id: req.parms.articleId });
+    const article = await Post.findByIdAndDelete({ _id: req.params.id });
+
+    return res.status(201).send({ article });
+  } catch (e) {
+    return res.status(400).send(e);
+  }
+};
+
+exports.deleteAllPosts = async (req, res) => {
+  try {
+    const article = await Post.deleteMany({ userId: req.params.id });
 
     return res.status(201).send({ article });
   } catch (e) {
