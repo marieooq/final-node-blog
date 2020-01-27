@@ -91,13 +91,16 @@ const Article = ({ match }) => {
                                 <a href={`/u/${articleData.userId}`}><div className="author_picture" style={{ backgroundImage: `url("${findUserPic(articleData.userId)}")`, height: '40px' }}></div></a>
                                 <div className="author_name">
                                     <a href={`/u/${articleData.userId}`}>{findUserName(articleData.userId)}</a> - <Moment date={articleData.createdAt} format="YYYY/MM/DD" />
-                                    {user._id != articleData.userId ? (
+                                    {user._id !== articleData.userId ? (
                                         <div>
                                         </div>
                                     ) : (
                                         <div>
-                                            <i className="fa fa-pen-square"></i>
+                                            <i className="fa fa-edit"></i>
                                             <a href={`/edit/${articleData._id}`}> Edit Post</a>
+                                            &nbsp;&nbsp;/&nbsp;&nbsp;
+                                            <i className="fa fa-trash-alt"></i>
+                                            <a href={`/delete/${articleData._id}`}> Delete Post</a>
                                         </div>
                                     )}
                                 </div>
