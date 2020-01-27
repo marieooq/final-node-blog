@@ -7,31 +7,48 @@ import Header from "./Header";
 import Navigation from "./Navigation";
 
 const Article = ({ match }) => {
-    console.log(match.params.id);
     const [response, setResponse] = useState();
     const [articleData, setArticleData] = useState([]);
     const [usersData, setUsersData] = useState([]);
 
-    useEffect(async () => {
-        const article = await api.get("/"+match.params.id);
-        // console.log("User's articles: ", article);
-        setArticleData(article.data.article);
+    let user;
+    if (localStorage.getItem("user")) {
+        user = JSON.parse(localStorage.getItem("user"));
+    }
 
-        const users = await api.get("/users");
-        // console.log("users: ", users.data.users);
-        setUsersData(users.data.users);
+    useEffect(() => {
+        async function fetchArticle() {
+            const article = await api.get("/" + match.params.id);
+            setArticleData(article.data.article);
+        }
+        fetchArticle();
+
+        async function fetchUsers() {
+            const users = await api.get("/users");
+            setUsersData(users.data.users);
+        }
+        fetchUsers();
     }, []);
 
     const findUserName = (id) => {
         let userName;
         usersData.map(entry => {
-            if(entry._id === id) userName = entry.firstName +" "+entry.lastName;
+            if (entry._id === id) userName = entry.firstName + " " + entry.lastName;
         });
         return userName;
-    }
+    };
+
+    const findUserPic = (id) => {
+        let displayPic;
+        usersData.map(entry => {
+            if(entry._id === id) {
+                displayPic = entry.displayPicture;
+            }
+        });
+        return displayPic;
+    };
 
     const responseForm = async event => {
-        console.log("clicked");
         event.preventDefault();
         if (response !== undefined && response !== "") {
             const user = await api.post("/comment", {
@@ -71,10 +88,21 @@ const Article = ({ match }) => {
                             <Navigation />
                             <h1 className="article_title">{articleData.title}</h1>
                             <div className="author">
-                                <a href={`/u/${articleData.userId}`}><div className="author_picture"><img src="" /></div></a>
-                                <div className="author_name"><a href={`/u/${articleData.userId}`}>{findUserName(articleData.userId)}</a> - <Moment date={articleData.createdAt} format="YYYY/MM/DD" /></div>
+                                <a href={`/u/${articleData.userId}`}><div className="author_picture" style={{ backgroundImage: `url("${findUserPic(articleData.userId)}")`, height: '40px' }}></div></a>
+                                <div className="author_name">
+                                    <a href={`/u/${articleData.userId}`}>{findUserName(articleData.userId)}</a> - <Moment date={articleData.createdAt} format="YYYY/MM/DD" />
+                                    {user._id != articleData.userId ? (
+                                        <div>
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            <i className="fa fa-pen-square"></i>
+                                            <a href={`/edit/${articleData._id}`}> Edit Post</a>
+                                        </div>
+                                    )}
+                                </div>
 
-                                <div className="article_cat">{articleData.category}</div>
+                                <a href={`/category/${articleData.category}`}><div className="article_cat">{articleData.category}</div></a>
                             </div>
 
                             <div className="article_content">

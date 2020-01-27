@@ -38,6 +38,7 @@ const Signup = props => {
   const [userLastName, setLastName] = useState();
   const [userEmail, setUserEmail] = useState();
   const [userPass, setUserPass] = useState();
+  const [userPic, setUserPic] = useState();
 
   const classes = useStyles();
 
@@ -48,7 +49,8 @@ const Signup = props => {
         firstName: userFirstName,
         lastName: userLastName,
         email: userEmail,
-        password: userPass
+        password: userPass,
+        displayPicture: userPic
       });
       localStorage.setItem("user", JSON.stringify(user.data.user));
       props.history.push("/");
@@ -69,6 +71,9 @@ const Signup = props => {
 
   const handlePasswordChange = value => {
     setUserPass(value);
+  };
+  const handlePictureChange = value => {
+    setUserPic(value);
   };
 
   return (
@@ -129,6 +134,16 @@ const Signup = props => {
                       id="password"
                       autoComplete="current-password"
                       onChange={e => handlePasswordChange(e.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      name="displayPicture"
+                      label="Display Picture URL"
+                      type="text"
+                      id="displayPicture"
+                      onChange={e => handlePictureChange(e.target.value)}
                     />
                   </Grid>
                 </Grid>

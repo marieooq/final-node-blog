@@ -18,7 +18,7 @@ const Header = props => {
     <nav>
       <div className="wrapper">
         <a href="/">
-          <img className="logo" src={bloggu_logo} />
+          <img className="logo" src={bloggu_logo} alt="logo" />
         </a>
         <div>
           {user === undefined ? (
@@ -28,7 +28,7 @@ const Header = props => {
             </div>
           ) : (
             <div>
-              <Link className="header_link" to={`/u/${user.userName}`}>
+              <Link className="header_link" to={`/u/${user._id}`}>
                 {user.userName}
               </Link>{" "}
               / <button onClick={handleClick}>Signout</button>
