@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import "./Post.scss";
+import React, { useState, useEffect } from "react";
+import "./Edit.scss";
 import { api } from "../api";
 
 import Button from '@material-ui/core/Button';
@@ -14,20 +14,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { withRouter } from "react-router-dom";
 
 import Header from "./Header";
-
-const postHeaderStyle = {
-    height: '50vh',
-    backgroundImage: `url("https://images.unsplash.com/photo-1573718893672-86144926f4fb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3900&q=80")`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    position: 'relative',
-    verticalAlign: 'top',
-    backgroundPosition: 'center center',
-    transformOrigin: 'center top',
-    transform: 'translateZ(-#{0.5 * 2}px) scale(1 + 0.5 * 2)'
-}
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -57,59 +46,80 @@ const options = categoriesArr.map(cat =>(
     <MenuItem value={cat}>{cat}</MenuItem>
 ));
 
-const Post = () => {
+const Edit = ({match, history}) => {
     const [postTitle, setTitle] = useState();
     const [postContent, setContent] = useState();
     const [category, setCategory] = React.useState('');
     const [image, setImage] = React.useState('');
+    const [articleData, setArticleData] = useState([]);
 
     const classes = useStyles();
 
+    useEffect(() => {
+        async function fetchArticle() {
+            const article = await api.get("/" + match.params.id);
+            setArticleData(article.data.article);
+            setTitle(article.data.article.title);
+            setContent(article.data.article.content);
+            setCategory(article.data.article.category);
+            setImage(article.data.article.featuredImage);
+        }
+        fetchArticle();
+    }, []);
+
     const postForm = async event => {
         event.preventDefault();
-        if (postTitle !== undefined && postTitle !== "") {
-            const post = await api.post("/post", {
-                // userId: localStorage.getItem("user", user.data.user),
-                title: postTitle,
-                content: postContent,
-                category: category,
-                featuredImage: image
-            });
+        let data = {
+            _id: articleData._id,
+            title: postTitle,
+            content: postContent,
+            category: category,
+            featuredImage: image,
+            userId: articleData.userId
         }
+        
+        const edit = await api.post("/update", {
+            _id: articleData._id,
+            title: postTitle,
+            content: postContent,
+            category: category,
+            featuredImage: image,
+            userId: articleData.userId
+        }).then(function (response) {
+                history.push("/article/"+articleData._id);
+            })
+            .catch(function (error) {
+                    console.log(error);            
+            });
     };
 
-    const handleCategoryChange = event => {
-        setCategory(event.target.value);
-    };
-
-    const handleTitleChange = value => {
-        setTitle(value);
-    };
-
-    const handleContentChange = value => {
-        setContent(value);
-    };
-
-    const handleFeaturedImageChange = value => {
-        setImage(value);
-    };
-
+    const postHeaderStyle = {
+        height: '50vh',
+        backgroundImage: `url("${articleData.featuredImage}")`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        position: 'relative',
+        verticalAlign: 'top',
+        backgroundPosition: 'center center',
+        transformOrigin: 'center top',
+        transform: 'translateZ(-#{0.5 * 2}px) scale(1 + 0.5 * 2)'
+    }
 
     return (
-        <div className="post_main">
+        <div className="edit_main">
             <div style={postHeaderStyle}>
             </div>
-            <div className="post_section">
+            <div className="edit_section">
                 <Header />
-                <div className="post_main_wrapper">
+                <div className="edit_main_wrapper">
 
-                    <div className="post_article_wrapper">
+                    <div className="edit_article_wrapper">
                         <Container component="main" maxWidth="lg">
                             <CssBaseline />
                             <div className={classes.paper}>
 
                                 <Typography component="h1" variant="h3">
-                                    Write an Article
+                                    Edit an Article
                                 </Typography>
                                 <form className={classes.form} onSubmit={postForm}>
                                     <Grid container spacing={2}>
@@ -119,9 +129,9 @@ const Post = () => {
                                                 required
                                                 fullWidth
                                                 id="title"
-                                                label="Title"
-                                                autoFocus
-                                                onChange={e => handleTitleChange(e.target.value)}
+                                                variant="filled"
+                                                value={postTitle}
+                                                onChange={e => setTitle(e.target.value)}
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
@@ -130,8 +140,10 @@ const Post = () => {
                                                 <Select
                                                     labelId="category-label"
                                                     id="category-select"
+                                                    selectedValue={category}
                                                     value={category}
-                                                    onChange={handleCategoryChange}
+                                                    variant="filled"
+                                                    onChange={e => setCategory(e.target.value)}
                                                 >
                                                     {options}
                                                 </Select>
@@ -143,9 +155,9 @@ const Post = () => {
                                                 required
                                                 fullWidth
                                                 id="featuredImage"
-                                                label="Featured Image URL"
-                                                autoFocus
-                                                onChange={e => handleFeaturedImageChange(e.target.value)}
+                                                variant="filled"
+                                                value={image}
+                                                onChange={e => setImage(e.target.value)}
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
@@ -153,12 +165,12 @@ const Post = () => {
                                                 required
                                                 fullWidth
                                                 id="body"
-                                                label="Body"
                                                 name="body"
                                                 multiline
                                                 rows="4"
-                                                autoComplete="body"
-                                                onChange={e => handleContentChange(e.target.value)}
+                                                variant="filled"
+                                                value={postContent}
+                                                onChange={e => setContent(e.target.value)}
                                             />
                                         </Grid>
 
@@ -186,7 +198,7 @@ const Post = () => {
     )
 };
 
-export default Post;
+export default withRouter(Edit);
 
 
 
