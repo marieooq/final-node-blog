@@ -40,14 +40,15 @@ exports.getPostsByCategory = async (req, res) => {
 };
 
 exports.editPost = async (req, res) => {
+  console.log("editPost!!!");
   try {
-    const article = await Post.findByIdAndUpdate(
+    const article = await Post.findOneAndUpdate(
       { _id: req.params.articleId },
       {
         $set: {
           title: req.body.title,
           content: req.body.content,
-          userId: "123",
+          userId: req.body.userId,
           featuredImage: req.body.image,
           category: req.body.category
         }
@@ -55,7 +56,7 @@ exports.editPost = async (req, res) => {
     );
     return res.status(201).send({ article });
   } catch (e) {
-    console.log(e);
+    console.log("ERROR = ",e);
     return res.status(400).send(e);
   }
 };

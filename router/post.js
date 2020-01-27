@@ -17,7 +17,7 @@ router.get("/postByUser/:userId", getPostsByUser);
 
 router.get("/postByCategory/:category", getPostsByCategory);
 
-router.patch("/edit/:articleId", editPost);
+router.put("/edit", editPost);
 
 router.delete("/delete/:articleId", deletePost);
 
