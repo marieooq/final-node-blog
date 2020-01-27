@@ -110,7 +110,7 @@ const Article = ({ match, history }) => {
                                 <a href={`/u/${articleData.userId}`}><div className="author_picture" style={{ backgroundImage: `url("${findUserPic(articleData.userId)}")`, height: '40px' }}></div></a>
                                 <div className="author_name">
                                     <a href={`/u/${articleData.userId}`}>{findUserName(articleData.userId)}</a> - <Moment date={articleData.createdAt} format="YYYY/MM/DD" />
-                                    {user._id !== articleData.userId ? (
+                                    {user == undefined || user._id !== articleData.userId ? (
                                         <div>
                                         </div>
                                     ) : (
