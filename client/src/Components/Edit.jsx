@@ -71,16 +71,8 @@ const Edit = ({ match, history }) => {
 
     const postForm = async event => {
         event.preventDefault();
-        let data = {
-            _id: articleData._id,
-            title: postTitle,
-            content: postContent,
-            category: category,
-            featuredImage: image,
-            userId: articleData.userId
-        }
 
-        const edit = await api.post("/update", {
+        await api.post("/update", {
             _id: articleData._id,
             title: postTitle,
             content: postContent,

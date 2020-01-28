@@ -23,6 +23,8 @@ const Article = ({ match, history }) => {
         async function fetchArticle() {
             const article = await api.get("/" + match.params.id);
             setArticleData(article.data.article);
+            setCommentsData(article.data.article.comments);
+            console.log("Article Data = ",article.data.article);
         }
         fetchArticle();
 
@@ -32,11 +34,6 @@ const Article = ({ match, history }) => {
         }
         fetchUsers();
 
-        async function fetchComments() {
-            const comments = await api.get("/comments");
-            setCommentsData(comments.data.comments);
-        }
-        fetchComments();
     }, []);
 
     const findUserName = (id) => {
@@ -60,8 +57,10 @@ const Article = ({ match, history }) => {
     const responseForm = async event => {
         event.preventDefault();
         if (response !== undefined && response !== "") {
-            const user = await api.post("/comment", {
-                comment: response
+            await api.post("/postComment", {
+                content: response,
+                articleId: match.params.id,
+                userId: user._id
             });
 
             setResponse("");
@@ -70,9 +69,24 @@ const Article = ({ match, history }) => {
 
     const deleteArticle = async event => {
         event.preventDefault();
-        const deleteArticle = await api.delete("/delete/" + match.params.id)
+        await api.delete("/delete/" + match.params.id)
             .then(function (response) {
                 history.push("/u/" + user._id);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+
+    const likesHandler = async event => {
+        event.preventDefault();
+
+        let tempLike = articleData.like += 1;
+        await api.post("/like", {
+            _id: articleData._id,
+            likes: tempLike
+        }).then(function (response) {
+            console.log("likesHandle = ", response);
             })
             .catch(function (error) {
                 console.log(error);
@@ -94,10 +108,6 @@ const Article = ({ match, history }) => {
     const createMarkup = () =>{
         return {__html: `<p>${articleData.content}</p>`};
     }
-
-    const handleResponseChange = value => {
-        setResponse(value);
-    };
 
     return (
         <>
@@ -123,7 +133,7 @@ const Article = ({ match, history }) => {
                                                 <a href={`/edit/${articleData._id}`}> Edit Post</a>
                                                 &nbsp;&nbsp;/&nbsp;&nbsp;
                                                 <i className="fa fa-trash-alt"></i>
-                                                <a onClick={deleteArticle}>Delete Post</a>
+                                                <a href="#" onClick={deleteArticle}>Delete Post</a>
                                             </div>
                                         )}
                                 </div>
@@ -139,7 +149,7 @@ const Article = ({ match, history }) => {
                                 </div>
                             ) : (
                                 <div className="article_likes">
-                                <h3><i className="far fa-heart"></i> 0</h3>
+                                <h3><i id="clickLike" onClick={likesHandler} className="far fa-heart"></i>{articleData.likes}</h3>
                                 </div>
                             )}
 
@@ -156,14 +166,11 @@ const Article = ({ match, history }) => {
                         Write a comment<br />
                         <form onSubmit={responseForm}>
                             <div className="group">
-                                <input
-                                    type="hidden"
-                                />
                                 <br />
                                 <input
                                     type="text"
                                     placeholder="Enter your Response"
-                                    onChange={e => handleResponseChange(e.target.value)}
+                                    onChange={e => setResponse(e.target.value)}
                                     required
                                 />
                             </div>
@@ -172,7 +179,7 @@ const Article = ({ match, history }) => {
 
                         Comments<br />
                         <hr />
-                        <Comments users={usersData} comments={commentsData} />
+                        {/* <Comments users={usersData} comments={commentsData} /> */}
                     </div>
                 )}
 

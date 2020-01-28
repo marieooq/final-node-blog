@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-const { getAllPosts } = require("../controller/post");
-const { getPost } = require("../controller/post");
-const { getPostsByUser } = require("../controller/post");
-const { getPostsByCategory } = require("../controller/post");
-const { editPost } = require("../controller/post");
-const { deletePost } = require("../controller/post");
-const { deleteAllPosts } = require("../controller/post");
-const { post } = require("../controller/post");
+const { getAllPosts, getPost, getPostsByUser, getPostsByCategory, editPost, deletePost, deleteAllPosts, post, postLike } = require("../controller/post");
+// const { getPost } = require("../controller/post");
+// const { getPostsByUser } = require("../controller/post");
+// const { getPostsByCategory } = require("../controller/post");
+// const { editPost } = require("../controller/post");
+// const { deletePost } = require("../controller/post");
+// const { deleteAllPosts } = require("../controller/post");
+// const { post } = require("../controller/post");
 
 router.get("/", getAllPosts);
 
@@ -24,5 +24,7 @@ router.delete("/delete/:id", deletePost);
 router.delete("/deleteAll/:id", deleteAllPosts);
 
 router.post("/post", post);
+
+router.post("/like", postLike);
 
 module.exports = router;

@@ -1,6 +1,5 @@
 import React from "react";
 import Moment from 'react-moment';
-import { api } from "../api";
 
 const FeatureArticle = (props) => {
 
