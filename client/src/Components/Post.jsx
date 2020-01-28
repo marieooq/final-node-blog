@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Post.scss";
 import { api } from "../api";
 import { withRouter } from "react-router-dom";
+import CKEditor from 'ckeditor4-react';
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -153,21 +154,14 @@ const Post = ({history}) => {
                                                 fullWidth
                                                 id="featuredImage"
                                                 label="Featured Image URL"
-                                                autoFocus
                                                 onChange={e => handleFeaturedImageChange(e.target.value)}
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <TextField
-                                                required
-                                                fullWidth
+                                            <CKEditor 
                                                 id="body"
-                                                label="Body"
-                                                name="body"
-                                                multiline
-                                                rows="4"
-                                                autoComplete="body"
-                                                onChange={e => handleContentChange(e.target.value)}
+                                                onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) }
+                                                onChange={evt => setContent(evt.editor.getData())}
                                             />
                                         </Grid>
 

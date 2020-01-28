@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 
 const categoriesArr = ["Lifestyle", "Food", "Travel", "Movie", "Photography", "Social Media", "Pets", "Technology", "Fashion", "Beauty"];
 const options = categoriesArr.map(cat => (
-    <MenuItem value={cat}>{cat}</MenuItem>
+    <MenuItem value={cat} key={cat}>{cat}</MenuItem>
 ));
 
 const Edit = ({ match, history }) => {
@@ -95,10 +95,6 @@ const Edit = ({ match, history }) => {
             });
     };
 
-    const onEditorChange = ( evt ) => {
-        setContent({data: evt.editor.getData()});
-    }
-
     const postHeaderStyle = {
         height: '50vh',
         backgroundImage: `url("${articleData.featuredImage}")`,
@@ -146,7 +142,6 @@ const Edit = ({ match, history }) => {
                                                 <Select
                                                     labelId="category-label"
                                                     id="category-select"
-                                                    selectedValue={category}
                                                     value={category}
                                                     variant="filled"
                                                     onChange={e => setCategory(e.target.value)}
@@ -168,9 +163,10 @@ const Edit = ({ match, history }) => {
                                         </Grid>
                                         <Grid item xs={12}>
                                             <CKEditor 
+                                                id="body"
                                                 onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) }
                                                 data={postContent} 
-                                                onChange={onEditorChange}
+                                                onChange={evt => setContent(evt.editor.getData())}
                                             />
                                         </Grid>
 
