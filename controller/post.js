@@ -13,6 +13,7 @@ exports.getAllPosts = async (req, res) => {
 exports.getPost = async (req, res) => {
   try {
     const article = await Post.findById({ _id: req.params.articleId });
+      // .populate
     return res.status(201).send({ article });
   } catch (e) {
     return res.status(400).send(e);

@@ -91,6 +91,10 @@ const Article = ({ match, history }) => {
         transform: 'translateZ(-#{0.5 * 2}px) scale(1 + 0.5 * 2)'
     }
 
+    const createMarkup = () =>{
+        return {__html: articleData.content};
+    }
+
     const handleResponseChange = value => {
         setResponse(value);
     };
@@ -127,8 +131,8 @@ const Article = ({ match, history }) => {
                                 <a href={`/category/${articleData.category}`}><div className="article_cat">{articleData.category}</div></a>
                             </div>
 
-                            <div className="article_content">
-                                <p>{articleData.content}</p>
+                            <div className="article_content" dangerouslySetInnerHTML={createMarkup()}>
+                                {/* <p>{articleData.content}</p> */}
                             </div>
 
                             {user === undefined? (
