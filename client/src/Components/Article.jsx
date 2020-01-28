@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Article.scss";
 import { api } from "../api";
 import Moment from 'react-moment';
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import Header from "./Header";
 import Navigation from "./Navigation";
@@ -91,6 +91,10 @@ const Article = ({ match, history }) => {
         transform: 'translateZ(-#{0.5 * 2}px) scale(1 + 0.5 * 2)'
     }
 
+    const createMarkup = () =>{
+        return {__html: `<p>${articleData.content}</p>`};
+    }
+
     const handleResponseChange = value => {
         setResponse(value);
     };
@@ -110,15 +114,15 @@ const Article = ({ match, history }) => {
                                 <a href={`/u/${articleData.userId}`}><div className="author_picture" style={{ backgroundImage: `url("${findUserPic(articleData.userId)}")`, height: '40px' }}></div></a>
                                 <div className="author_name">
                                     <a href={`/u/${articleData.userId}`}>{findUserName(articleData.userId)}</a> - <Moment date={articleData.createdAt} format="YYYY/MM/DD" />
-                                    {user == undefined || user._id !== articleData.userId ? (
+                                    {user === undefined || user._id !== articleData.userId ? (
                                         <div>
                                         </div>
                                     ) : (
-                                            <div>
+                                            <div className="author_options">
                                                 <i className="fa fa-edit"></i>
                                                 <a href={`/edit/${articleData._id}`}> Edit Post</a>
                                                 &nbsp;&nbsp;/&nbsp;&nbsp;
-                                            <i className="fa fa-trash-alt"></i>
+                                                <i className="fa fa-trash-alt"></i>
                                                 <a onClick={deleteArticle}>Delete Post</a>
                                             </div>
                                         )}
@@ -127,8 +131,7 @@ const Article = ({ match, history }) => {
                                 <a href={`/category/${articleData.category}`}><div className="article_cat">{articleData.category}</div></a>
                             </div>
 
-                            <div className="article_content">
-                                <p>{articleData.content}</p>
+                            <div className="article_content" dangerouslySetInnerHTML={createMarkup()}>
                             </div>
 
                             {user === undefined? (

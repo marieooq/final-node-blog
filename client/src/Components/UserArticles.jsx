@@ -1,12 +1,16 @@
 import React from "react";
 import Moment from 'react-moment';
 
-const countBodyNum = body => {
-    if (body.length >= 110) {
-        return body.slice(0, 300) + "...";
+const createMarkup = (content) =>{
+    let body;
+    if (content.length >= 110) {
+        body =  content.slice(0, 300) + "...";
     }
-    return body;
-};
+    else{
+        body = content;
+    }
+    return {__html: `<p>${body}</p>`};
+}
 
 const UserArticles = (props) => {
 
@@ -19,7 +23,7 @@ const UserArticles = (props) => {
                         <Moment date={entry.createdAt} format="YYYY/MM/DD" />
                     </div>
                     <h3><a href={`/article/${entry._id}`}>{entry.title}</a></h3>
-                    <p>{countBodyNum(entry.content)}</p>
+                    <div dangerouslySetInnerHTML={createMarkup(entry.content)}></div>
                 </div>
             </div>
         ))
