@@ -44,7 +44,7 @@ const Signup = props => {
 
   const signupForm = async event => {
     event.preventDefault();
-    const user = await api.post("/signup", {
+    await api.post("/signup", {
       firstName: userFirstName,
       lastName: userLastName,
       email: userEmail,
