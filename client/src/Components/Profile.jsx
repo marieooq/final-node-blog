@@ -27,11 +27,11 @@ const Profile = ({ match, history }) => {
             setUserData(user.data.user);
         }
         fetchUser();
-    }, []);
+    });
 
     const deleteAll = async event => {
         event.preventDefault();
-        const deleteArticle = await api.delete("/deleteAll/"+user._id )
+        await api.delete("/deleteAll/"+user._id )
             .then(function (response) {
                 // history.push("/u/"+user._id); //unable to refresh the same page
                 history.push("/");
@@ -75,7 +75,7 @@ const Profile = ({ match, history }) => {
                                     <a href="/post">Create New Post</a>
                                     &nbsp;&nbsp;/&nbsp;&nbsp;
                                     <i className="fa fa-trash-alt"></i>
-                                    <a onClick={deleteAll}>Delete All Post</a>
+                                    <a href="#" onClick={deleteAll}>Delete All Post</a>
                                 </div>
                             )}
                         </div>

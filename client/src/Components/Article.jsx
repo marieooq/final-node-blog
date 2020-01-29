@@ -45,11 +45,9 @@ const Article = ({ match, history }) => {
     }, []);
 
     const findUserName = (id) => {
-        let userName;
-        usersData.map(entry => {
-            if (entry._id === id) userName = entry.firstName + " " + entry.lastName;
+        return usersData.map(entry => {
+            if (entry._id === id) return `${entry.firstName} ${entry.lastName}`
         });
-        return userName;
     };
 
     const findUserPic = (id) => {
@@ -63,7 +61,7 @@ const Article = ({ match, history }) => {
     };
 
     const responseForm = async event => {
-        event.preventDefault();
+        // event.preventDefault();
         if (response !== undefined && response !== "") {
             await api.post("/postComment", {
                 content: response,
@@ -194,7 +192,7 @@ const Article = ({ match, history }) => {
                         </form>
                         <hr />
                         <h3>Comments</h3>
-                        <Comments users={usersData} commentsData={commentsData} />
+                        <Comments users={usersData} commentsData={commentsData} key={commentsData._id} />
                     </div>
                 )}
 
