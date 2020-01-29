@@ -21,10 +21,10 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    // comments: { 
-    //   // type: [Schema.Types.ObjectId],
-    //   ref: "Comment"
-    // },
+    comments: {
+      type: [Schema.Types.ObjectId],
+      ref: "Comment"
+    },
     likes: {
       type: Number,
       default: 0
