@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useEffect, useState} from "react";
 import Moment from 'react-moment';
+import { api } from "../api";
+
+import "./Comments.scss";
 
 const Comments = (props) => {
+    const [usersData, setUsersData] = useState([]);
+    const [commentData, setCommentData] = useState([]);
 
     const findUserName = (id) => {
         let userName;
@@ -22,7 +27,7 @@ const Comments = (props) => {
     }
 
     return (
-        props.comments.map(comment => (
+        props.commentsData.map(comment => (
             <div className="comments_list" key={comment._id}>
                 <div className="comment_content">
                     <div className="coment_content_top">

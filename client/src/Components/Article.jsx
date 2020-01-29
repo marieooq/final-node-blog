@@ -26,7 +26,7 @@ const Article = ({ match, history }) => {
             setArticleData(article.data.article);
             setLikeCounter(article.data.article.likes);
             setCommentsData(article.data.article.comments);
-            console.log("Article Data = ",article.data.article);
+            console.log("Article Data = ", article.data.article);
         }
         fetchArticle();
 
@@ -35,6 +35,12 @@ const Article = ({ match, history }) => {
             setUsersData(users.data.users);
         }
         fetchUsers();
+
+        async function fetchComments() {
+            const comments = await api.get("/comments/" + match.params.id);
+            setCommentsData(comments.data.comments);
+        }
+        fetchComments();
 
     }, []);
 
@@ -63,6 +69,12 @@ const Article = ({ match, history }) => {
                 content: response,
                 articleId: match.params.id,
                 userId: user._id
+            })
+            .then(function (response) {
+                history.push("/article/" + match.params.id);
+            })
+            .catch(function (error) {
+                console.log(error);
             });
 
             setResponse("");
@@ -167,7 +179,7 @@ const Article = ({ match, history }) => {
                     </div>
                 ) : (
                     <div className="wrapper">
-                        Write a comment<br />
+                        <h3>Write a comment</h3>
                         <form onSubmit={responseForm}>
                             <div className="group">
                                 <br />
@@ -180,10 +192,9 @@ const Article = ({ match, history }) => {
                             </div>
                             <input type="submit" className="btn" value="Submit" />
                         </form>
-
-                        Comments<br />
                         <hr />
-                        {/* <Comments users={usersData} comments={commentsData} /> */}
+                        <h3>Comments</h3>
+                        <Comments users={usersData} commentsData={commentsData} />
                     </div>
                 )}
 

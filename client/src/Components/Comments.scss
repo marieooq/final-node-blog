@@ -1,0 +1,31 @@
+.comments_list {
+  margin-top: 30px;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid rgb(219, 219, 219);
+  padding: 20px;
+
+  .comment_content {
+    width: 994px;
+
+    p {
+      font-size: 1.5rem;
+      font-weight: 100;
+      margin: 10px 0;
+    }
+
+    .coment_content_top {
+      margin-bottom: 15px;
+      display: flex;
+
+      .author_picture {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+        border-radius: 50%;
+        background-size: cover;
+        background-position: center center;
+      }
+    }
+  }
+}
