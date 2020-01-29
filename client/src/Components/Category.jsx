@@ -30,7 +30,7 @@ const Category = ({ match }) => {
             setUsersData(users.data.users);
         }
         fetchUsers();
-    }, []);
+    });
 
     const categoryHeaderStyle = {
         height: '50vh',

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+// import App from "./App";
 import HomePage from "./Components/HomePage";
 import Signin from "./Components/Signin";
 import Signup from "./Components/Signup";
