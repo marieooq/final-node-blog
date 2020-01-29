@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./Post.scss";
 import { api } from "../api";
+import { withRouter } from "react-router-dom";
+import CKEditor from 'ckeditor4-react';
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -57,7 +59,7 @@ const options = categoriesArr.map(cat =>(
     <MenuItem value={cat}>{cat}</MenuItem>
 ));
 
-const Post = () => {
+const Post = ({history}) => {
     const [postTitle, setTitle] = useState();
     const [postContent, setContent] = useState();
     const [category, setCategory] = React.useState('');
@@ -65,17 +67,25 @@ const Post = () => {
 
     const classes = useStyles();
 
+    let user;
+    if (localStorage.getItem("user")) {
+        user = JSON.parse(localStorage.getItem("user"));
+    }
+
     const postForm = async event => {
         event.preventDefault();
-        if (postTitle !== undefined && postTitle !== "") {
-            const post = await api.post("/post", {
-                // userId: localStorage.getItem("user", user.data.user),
-                title: postTitle,
-                content: postContent,
-                category: category,
-                featuredImage: image
-            });
-        }
+        const post = await api.post("/post", {
+            userId: user._id,
+            title: postTitle,
+            content: postContent,
+            category: category,
+            featuredImage: image
+        }).then(function (response) {
+            history.push("/u/" + user._id);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
     };
 
     const handleCategoryChange = event => {
@@ -144,21 +154,14 @@ const Post = () => {
                                                 fullWidth
                                                 id="featuredImage"
                                                 label="Featured Image URL"
-                                                autoFocus
                                                 onChange={e => handleFeaturedImageChange(e.target.value)}
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <TextField
-                                                required
-                                                fullWidth
+                                            <CKEditor 
                                                 id="body"
-                                                label="Body"
-                                                name="body"
-                                                multiline
-                                                rows="4"
-                                                autoComplete="body"
-                                                onChange={e => handleContentChange(e.target.value)}
+                                                onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) }
+                                                onChange={evt => setContent(evt.editor.getData())}
                                             />
                                         </Grid>
 
@@ -186,7 +189,7 @@ const Post = () => {
     )
 };
 
-export default Post;
+export default withRouter(Post);
 
 
 

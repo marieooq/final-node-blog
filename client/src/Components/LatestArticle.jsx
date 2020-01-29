@@ -1,12 +1,6 @@
 import React from "react";
 import Moment from 'react-moment';
 
-const countBodyNum = body => {
-    if (body.length >= 110) {
-        return body.slice(0, 300) + "...";
-    }
-    return body;
-};
 const LatestArticle = (props) => {
 
     const findUserName = (id) => {
@@ -29,6 +23,17 @@ const LatestArticle = (props) => {
         return displayPic;
     }
 
+    const createMarkup = (content) =>{
+        let body;
+        if (content.length >= 110) {
+            body =  content.slice(0, 300) + "...";
+        }
+        else{
+            body = content;
+        }
+        return {__html: `<p>${body}</p>`};
+    }
+
     return (
         props.data.map(entry => (
             <div className="latest_article" key={entry._id}>
@@ -40,7 +45,7 @@ const LatestArticle = (props) => {
                         <div><a href={`/u/${entry.userId}`}>{findUserName(entry.userId)}</a> <br /> <Moment date={entry.createdAt} format="YYYY/MM/DD" /></div>
                     </div>
                     <h3><a href={`/article/${entry._id}`}>{entry.title}</a></h3>
-                    <p>{countBodyNum(entry.content)}</p>
+                    <div dangerouslySetInnerHTML={createMarkup(entry.content)}></div>
                 </div>
             </div>
         ))

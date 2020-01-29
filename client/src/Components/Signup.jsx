@@ -44,36 +44,21 @@ const Signup = props => {
 
   const signupForm = async event => {
     event.preventDefault();
-    if (userEmail !== undefined && userEmail !== "") {
-      const user = await api.post("/signup", {
-        firstName: userFirstName,
-        lastName: userLastName,
-        email: userEmail,
-        password: userPass,
-        displayPicture: userPic
-      });
-      localStorage.setItem("user", JSON.stringify(user.data.user));
-      props.history.push("/");
-    }
-  };
-
-  const handleFirstNameChange = value => {
-    setFirstName(value);
-  };
-
-  const handleLastNameChange = value => {
-    setLastName(value);
-  };
-
-  const handleEmailChange = value => {
-    setUserEmail(value);
-  };
-
-  const handlePasswordChange = value => {
-    setUserPass(value);
-  };
-  const handlePictureChange = value => {
-    setUserPic(value);
+    await api.post("/signup", {
+      firstName: userFirstName,
+      lastName: userLastName,
+      email: userEmail,
+      password: userPass,
+      displayPicture: userPic
+    })
+    .then(function (response) {
+      console.log(response);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+    })
+    .catch(function (error) {
+        console.log("Sign Up Error: ", error);
+    });
+    props.history.push("/");
   };
 
   return (
@@ -92,14 +77,13 @@ const Signup = props => {
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <TextField
-                      autoComplete="fname"
                       name="firstName"
                       required
                       fullWidth
                       id="firstName"
                       label="First Name"
                       autoFocus
-                      onChange={e => handleFirstNameChange(e.target.value)}
+                      onChange={e => setFirstName(e.target.value)}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -109,8 +93,7 @@ const Signup = props => {
                       id="lastName"
                       label="Last Name"
                       name="lastName"
-                      autoComplete="lname"
-                      onChange={e => handleLastNameChange(e.target.value)}
+                      onChange={e => setLastName(e.target.value)}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -121,7 +104,7 @@ const Signup = props => {
                       label="Email Address"
                       name="email"
                       autoComplete="email"
-                      onChange={e => handleEmailChange(e.target.value)}
+                      onChange={e => setUserEmail(e.target.value)}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -133,17 +116,18 @@ const Signup = props => {
                       type="password"
                       id="password"
                       autoComplete="current-password"
-                      onChange={e => handlePasswordChange(e.target.value)}
+                      onChange={e => setUserPass(e.target.value)}
                     />
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
                       fullWidth
+                      required
                       name="displayPicture"
                       label="Display Picture URL"
                       type="text"
                       id="displayPicture"
-                      onChange={e => handlePictureChange(e.target.value)}
+                      onChange={e => setUserPic(e.target.value)}
                     />
                   </Grid>
                 </Grid>

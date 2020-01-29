@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 import "./Article.scss";
 import { api } from "../api";
 import Moment from 'react-moment';
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import Header from "./Header";
 import Navigation from "./Navigation";
+import Comments from "./Comments";
 
 const Article = ({ match, history }) => {
     const [response, setResponse] = useState();
     const [articleData, setArticleData] = useState([]);
     const [usersData, setUsersData] = useState([]);
+    const [commentsData, setCommentsData] = useState([]);
 
     let user;
     if (localStorage.getItem("user")) {
@@ -21,6 +23,8 @@ const Article = ({ match, history }) => {
         async function fetchArticle() {
             const article = await api.get("/" + match.params.id);
             setArticleData(article.data.article);
+            setCommentsData(article.data.article.comments);
+            console.log("Article Data = ",article.data.article);
         }
         fetchArticle();
 
@@ -29,6 +33,7 @@ const Article = ({ match, history }) => {
             setUsersData(users.data.users);
         }
         fetchUsers();
+
     }, []);
 
     const findUserName = (id) => {
@@ -42,7 +47,7 @@ const Article = ({ match, history }) => {
     const findUserPic = (id) => {
         let displayPic;
         usersData.map(entry => {
-            if(entry._id === id) {
+            if (entry._id === id) {
                 displayPic = entry.displayPicture;
             }
         });
@@ -52,8 +57,10 @@ const Article = ({ match, history }) => {
     const responseForm = async event => {
         event.preventDefault();
         if (response !== undefined && response !== "") {
-            const user = await api.post("/comment", {
-                comment: response
+            await api.post("/postComment", {
+                content: response,
+                articleId: match.params.id,
+                userId: user._id
             });
 
             setResponse("");
@@ -62,12 +69,27 @@ const Article = ({ match, history }) => {
 
     const deleteArticle = async event => {
         event.preventDefault();
-        const deleteArticle = await api.delete("/delete/"+match.params.id )
+        await api.delete("/delete/" + match.params.id)
             .then(function (response) {
-                history.push("/u/"+user._id);
+                history.push("/u/" + user._id);
             })
             .catch(function (error) {
-                console.log(error);            
+                console.log(error);
+            });
+    };
+
+    const likesHandler = async event => {
+        event.preventDefault();
+
+        let tempLike = articleData.like += 1;
+        await api.post("/like", {
+            _id: articleData._id,
+            likes: tempLike
+        }).then(function (response) {
+            console.log("likesHandle = ", response);
+            })
+            .catch(function (error) {
+                console.log(error);
             });
     };
 
@@ -83,9 +105,9 @@ const Article = ({ match, history }) => {
         transform: 'translateZ(-#{0.5 * 2}px) scale(1 + 0.5 * 2)'
     }
 
-    const handleResponseChange = value => {
-        setResponse(value);
-    };
+    const createMarkup = () =>{
+        return {__html: `<p>${articleData.content}</p>`};
+    }
 
     return (
         <>
@@ -102,56 +124,65 @@ const Article = ({ match, history }) => {
                                 <a href={`/u/${articleData.userId}`}><div className="author_picture" style={{ backgroundImage: `url("${findUserPic(articleData.userId)}")`, height: '40px' }}></div></a>
                                 <div className="author_name">
                                     <a href={`/u/${articleData.userId}`}>{findUserName(articleData.userId)}</a> - <Moment date={articleData.createdAt} format="YYYY/MM/DD" />
-                                    {user._id !== articleData.userId ? (
+                                    {user === undefined || user._id !== articleData.userId ? (
                                         <div>
                                         </div>
                                     ) : (
-                                        <div>
-                                            <i className="fa fa-edit"></i>
-                                            <a href={`/edit/${articleData._id}`}> Edit Post</a>
-                                            &nbsp;&nbsp;/&nbsp;&nbsp;
-                                            <i className="fa fa-trash-alt"></i>
-                                            <a onClick={deleteArticle}>Delete Post</a>
-                                        </div>
-                                    )}
+                                            <div className="author_options">
+                                                <i className="fa fa-edit"></i>
+                                                <a href={`/edit/${articleData._id}`}> Edit Post</a>
+                                                &nbsp;&nbsp;/&nbsp;&nbsp;
+                                                <i className="fa fa-trash-alt"></i>
+                                                <a href="#" onClick={deleteArticle}>Delete Post</a>
+                                            </div>
+                                        )}
                                 </div>
 
                                 <a href={`/category/${articleData.category}`}><div className="article_cat">{articleData.category}</div></a>
                             </div>
 
-                            <div className="article_content">
-                                <p>{articleData.content}</p>
+                            <div className="article_content" dangerouslySetInnerHTML={createMarkup()}>
                             </div>
 
-                            <div className="article_likes">
-                                <h3><i className="far fa-heart"></i> 0</h3>
-                            </div>
+                            {user === undefined? (
+                                <div>
+                                </div>
+                            ) : (
+                                <div className="article_likes">
+                                <h3><i id="clickLike" onClick={likesHandler} className="far fa-heart"></i>{articleData.likes}</h3>
+                                </div>
+                            )}
+
                         </div>
                     </div>
                 </div>
             </div>
             <div className="article_response">
-                <div className="wrapper">
-                    Write a comment<br />
-                    <form onSubmit={responseForm}>
-                        <div className="group">
-                            <input
-                                type="hidden"
-                            />
-                            <br />
-                            <input
-                                type="text"
-                                placeholder="Enter your Response"
-                                onChange={e => handleResponseChange(e.target.value)}
-                                required
-                            />
-                        </div>
-                        <input type="submit" className="btn" value="Submit" />
-                    </form>
+                {user === undefined? (
+                    <div>
+                    </div>
+                ) : (
+                    <div className="wrapper">
+                        Write a comment<br />
+                        <form onSubmit={responseForm}>
+                            <div className="group">
+                                <br />
+                                <input
+                                    type="text"
+                                    placeholder="Enter your Response"
+                                    onChange={e => setResponse(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <input type="submit" className="btn" value="Submit" />
+                        </form>
 
-                    Comments<br />
-                    <hr />
-                </div>
+                        Comments<br />
+                        <hr />
+                        {/* <Comments users={usersData} comments={commentsData} /> */}
+                    </div>
+                )}
+
                 <footer>&copy; Copyright 2020. Team C</footer>
 
             </div>

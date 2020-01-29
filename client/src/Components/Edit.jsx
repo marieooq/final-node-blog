@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Edit.scss";
 import { api } from "../api";
+import CKEditor from 'ckeditor4-react';
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -41,12 +42,12 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const categoriesArr = ["Lifestyle","Food","Travel","Movie","Photography","Social Media","Pets","Technology","Fashion","Beauty"];
-const options = categoriesArr.map(cat =>(
-    <MenuItem value={cat}>{cat}</MenuItem>
+const categoriesArr = ["Lifestyle", "Food", "Travel", "Movie", "Photography", "Social Media", "Pets", "Technology", "Fashion", "Beauty"];
+const options = categoriesArr.map(cat => (
+    <MenuItem value={cat} key={cat}>{cat}</MenuItem>
 ));
 
-const Edit = ({match, history}) => {
+const Edit = ({ match, history }) => {
     const [postTitle, setTitle] = useState();
     const [postContent, setContent] = useState();
     const [category, setCategory] = React.useState('');
@@ -57,6 +58,7 @@ const Edit = ({match, history}) => {
 
     useEffect(() => {
         async function fetchArticle() {
+            console.log("used effect!");
             const article = await api.get("/" + match.params.id);
             setArticleData(article.data.article);
             setTitle(article.data.article.title);
@@ -69,16 +71,8 @@ const Edit = ({match, history}) => {
 
     const postForm = async event => {
         event.preventDefault();
-        let data = {
-            _id: articleData._id,
-            title: postTitle,
-            content: postContent,
-            category: category,
-            featuredImage: image,
-            userId: articleData.userId
-        }
-        
-        const edit = await api.post("/update", {
+
+        await api.post("/update", {
             _id: articleData._id,
             title: postTitle,
             content: postContent,
@@ -86,10 +80,10 @@ const Edit = ({match, history}) => {
             featuredImage: image,
             userId: articleData.userId
         }).then(function (response) {
-                history.push("/article/"+articleData._id);
-            })
+            history.push("/article/" + articleData._id);
+        })
             .catch(function (error) {
-                    console.log(error);            
+                console.log(error);
             });
     };
 
@@ -140,7 +134,6 @@ const Edit = ({match, history}) => {
                                                 <Select
                                                     labelId="category-label"
                                                     id="category-select"
-                                                    selectedValue={category}
                                                     value={category}
                                                     variant="filled"
                                                     onChange={e => setCategory(e.target.value)}
@@ -161,18 +154,14 @@ const Edit = ({match, history}) => {
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <TextField
-                                                required
-                                                fullWidth
+                                            <CKEditor 
                                                 id="body"
-                                                name="body"
-                                                multiline
-                                                rows="4"
-                                                variant="filled"
-                                                value={postContent}
-                                                onChange={e => setContent(e.target.value)}
+                                                onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) }
+                                                data={postContent} 
+                                                onChange={evt => setContent(evt.editor.getData())}
                                             />
                                         </Grid>
+
 
                                     </Grid>
                                     <Button

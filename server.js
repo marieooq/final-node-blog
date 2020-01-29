@@ -5,6 +5,7 @@ require("./db/db");
 const userRouter = require("./router/user");
 const postRouter = require("./router/post");
 const categoryRouter = require("./router/category");
+const commentRouter = require("./router/comment");
 
 app.use(express.json());
 app.use(cors());
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(userRouter);
 app.use(postRouter);
 app.use(categoryRouter);
+app.use(commentRouter);
 
 const port = process.env.PORT || 8000;
 

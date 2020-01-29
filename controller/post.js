@@ -12,8 +12,11 @@ exports.getAllPosts = async (req, res) => {
 
 exports.getPost = async (req, res) => {
   try {
-    const article = await Post.findById({ _id: req.params.articleId });
+    const article = await Post.findOne({ _id: req.params.articleId })
+      // .populate({ path: 'articleId', model:'Comment'})
+      .populate('articleId')
     return res.status(201).send({ article });
+    
   } catch (e) {
     return res.status(400).send(e);
   }
@@ -29,7 +32,6 @@ exports.getPostsByUser = async (req, res) => {
 };
 
 exports.getPostsByCategory = async (req, res) => {
-  console.log("params = ", req.params.category);
   try {
     const articles = await Post.find( { category: req.params.category } );
     return res.status(201).send({ articles });
@@ -83,8 +85,8 @@ exports.post = async (req, res) => {
   const post = new Post({
     title: req.body.title,
     content: req.body.content,
-    userId: "002",
-    featuredImage: req.body.image,
+    userId: req.body.userId,
+    featuredImage: req.body.featuredImage,
     category: req.body.category
   });
   try {
@@ -94,6 +96,23 @@ exports.post = async (req, res) => {
     await post.save();
     return res.status(201).send({ post });
   } catch (e) {
+    return res.status(400).send(e);
+  }
+};
+
+exports.postLike = async (req, res) => {
+  try {
+    const article = await Post.findByIdAndUpdate(
+      { _id: req.body._id },
+      {
+        $set: {
+          likes: req.body.likes
+        }
+      }
+    );
+    return res.status(201).send({ article });
+  } catch (e) {
+    console.log("ERROR = ",e);
     return res.status(400).send(e);
   }
 };
