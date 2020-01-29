@@ -33,11 +33,11 @@ const postSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-postSchema.virtual("Comment", {
-  ref: "Comment",
-  localField: "_id",
-  foreignField: "articleId"
-});
+// postSchema.virtual("Comment", {
+//   ref: "Comment",
+//   localField: "_id",
+//   foreignField: "articleId"
+// });
 
 const Post = mongoose.model("Post", postSchema);
 module.exports = Post;

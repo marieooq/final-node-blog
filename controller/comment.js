@@ -13,6 +13,15 @@ exports.getAllComments = async (req, res) => {
   }
 };
 
+exports.getAllCommentsById = async (req, res) => {
+  try {
+    const comments = await Comment.find( { articleId: req.params.id } );
+    return res.status(201).send({ comments });
+  } catch (e) {
+    return res.status(400).send(e);
+  }
+};
+
 exports.postComment = async (req, res) => {
   const post = new Comment({
     content: req.body.content,
