@@ -13,6 +13,7 @@ const Article = ({ match, history }) => {
     const [articleData, setArticleData] = useState([]);
     const [usersData, setUsersData] = useState([]);
     const [commentsData, setCommentsData] = useState([]);
+    const [likeCounter, setLikeCounter] = useState();
 
     let user;
     if (localStorage.getItem("user")) {
@@ -23,6 +24,7 @@ const Article = ({ match, history }) => {
         async function fetchArticle() {
             const article = await api.get("/" + match.params.id);
             setArticleData(article.data.article);
+            setLikeCounter(article.data.article.likes);
             setCommentsData(article.data.article.comments);
             console.log("Article Data = ",article.data.article);
         }
@@ -81,7 +83,9 @@ const Article = ({ match, history }) => {
     const likesHandler = async event => {
         event.preventDefault();
 
-        let tempLike = articleData.like += 1;
+        let tempLike = articleData.likes += 1;
+        setLikeCounter(tempLike);
+        console.log("tempLike = ",tempLike);
         await api.post("/like", {
             _id: articleData._id,
             likes: tempLike
@@ -149,7 +153,7 @@ const Article = ({ match, history }) => {
                                 </div>
                             ) : (
                                 <div className="article_likes">
-                                <h3><i id="clickLike" onClick={likesHandler} className="far fa-heart"></i>{articleData.likes}</h3>
+                                <h3><i id="clickLike" onClick={likesHandler} className="far fa-heart"></i> {likeCounter}</h3>
                                 </div>
                             )}
 
