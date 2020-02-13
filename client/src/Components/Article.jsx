@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 import Header from './Header';
 import Navigation from './Navigation';
 import Comments from './Comments';
+
 import Footer from './Footer';
 
 const Article = ({ match, history }) => {
@@ -19,7 +20,6 @@ const Article = ({ match, history }) => {
   let user;
   if (localStorage.getItem('user')) {
     user = JSON.parse(localStorage.getItem('user'));
-    console.log(`inside Article.jsx, user = ${user}`);
   }
 
   useEffect(() => {
@@ -196,37 +196,42 @@ const Article = ({ match, history }) => {
               )}
             </div>
           </div>
-        </div>
-      </div>
-      <div className="article_response">
-        {user === undefined ? (
-          <div></div>
-        ) : (
-          <div className="wrapper">
-            <h3>Write a comment</h3>
-            <form onSubmit={responseForm}>
-              <div className="group">
-                <br />
-                <input
-                  type="text"
-                  placeholder="Enter your Response"
-                  onChange={e => setResponse(e.target.value)}
-                  required
+
+          <div className="article_response">
+            {user === undefined ? (
+              <div></div>
+            ) : (
+              <div className="wrapper">
+                <h3>Write a comment</h3>
+                <form onSubmit={responseForm}>
+                  <div className="group">
+                    <br />
+                    <input
+                      type="text"
+                      placeholder="Enter your Response"
+                      onChange={e => setResponse(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <input type="submit" className="btn" value="Submit" />
+                </form>
+                <hr />
+                <h3>Comments</h3>
+                <Comments
+                  users={usersData}
+                  commentsData={commentsData}
+                  key={commentsData._id}
                 />
               </div>
-              <input type="submit" className="btn" value="Submit" />
-            </form>
-            <hr />
-            <h3>Comments</h3>
-            <Comments
-              users={usersData}
-              commentsData={commentsData}
-              key={commentsData._id}
-            />
+            )}
           </div>
-        )}
-
-        <Footer />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <Footer />
+        </div>
       </div>
     </>
   );
