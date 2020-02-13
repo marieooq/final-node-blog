@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
-import Header from "./Header";
-import Navigation from "./Navigation";
-import { api } from "../api";
-import "./HomePage.scss";
-
-import FeatureArticle from "./FeatureArticle";
-import LatestArticle from "./LatestArticle";
+import React, { useState, useEffect } from 'react';
+import Header from './Header';
+import Navigation from './Navigation';
+import LatestArticle from './LatestArticle';
+import Footer from './Footer';
+import { api } from '../api';
+import './HomePage.scss';
 
 const HomePage = () => {
   const [articleData, setArticleData] = useState([]);
@@ -13,15 +12,16 @@ const HomePage = () => {
 
   useEffect(() => {
     async function fetchArticles() {
-      const articles = await api.get("/");
+      const articles = await api.get('/');
       setArticleData(articles.data.articles);
     }
     fetchArticles();
 
     async function fetchUsers() {
-      const users = await api.get("/users");
+      const users = await api.get('/users');
       setUsersData(users.data.users);
     }
+
     fetchUsers();
   }, []);
 
@@ -33,16 +33,17 @@ const HomePage = () => {
         <div className="home_main_wrapper">
           <div className="home_article_wrapper">
             <Navigation />
-            <div className="featured_articles">
-              <FeatureArticle data={articleData} user={usersData} />
-            </div>
             <div className="latest_articles">
               <LatestArticle data={articleData} user={usersData} />
             </div>
           </div>
         </div>
-        <br/><br/><br/><br/><br/><br/>
-        <footer>&copy; Copyright 2020. Team C</footer>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <Footer />
       </div>
     </div>
   );

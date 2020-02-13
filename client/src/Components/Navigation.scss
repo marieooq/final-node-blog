@@ -1,19 +1,22 @@
 .nav_wrapper {
   min-height: 60px;
   padding: 10px 0;
+  margin-bottom: 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  color: rgb(204, 177, 89);
+  background-color: rgb(70, 69, 69);
 
-  .category{
-
+  .category {
     a {
-        color: rgb(204, 177, 89);
-      
-        &hover {
-          text-decoration: underline;
-        }
+      color: rgb(204, 177, 89);
+      display: block;
+      // font-size: 1.2em;
+      margin-left: 2em;
+
+      &hover {
+        text-decoration: underline;
       }
+    }
   }
 }

@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const User = require("../model/user");
+const mongoose = require('mongoose');
+const User = require('../model/user');
 
 exports.getAllUsers = async (req, res) => {
   try {
@@ -32,7 +32,7 @@ exports.signup = async (req, res) => {
   console.log(user);
   try {
     if (!user) {
-      return res.send("signin was failed");
+      return res.send('signin was failed');
     }
     await user.save();
     return res.status(201).send({ user });
