@@ -1,18 +1,18 @@
-import React from "react";
-import "./Header.scss";
-import bloggu_logo from "../images/bloggu_logo.png";
-import { Link, withRouter } from "react-router-dom";
+import React from 'react';
+import './Header.scss';
+import bloggu_logo from '../images/bloggu_logo.png';
+import { Link, withRouter } from 'react-router-dom';
 
 const Header = props => {
   let history = props.history;
   const handleClick = () => {
-    localStorage.removeItem("user");
-    history.push("/");
+    localStorage.removeItem('user');
+    history.push('/');
   };
 
   let user;
-  if (localStorage.getItem("user")) {
-    user = JSON.parse(localStorage.getItem("user"));
+  if (localStorage.getItem('user')) {
+    user = JSON.parse(localStorage.getItem('user'));
   }
   return (
     <nav>
@@ -30,8 +30,11 @@ const Header = props => {
             <div>
               <Link className="header_link" to={`/u/${user._id}`}>
                 {user.userName}
-              </Link>{" "}
-              / <button onClick={handleClick}>Logout</button>
+              </Link>{' '}
+              /{' '}
+              <button onClick={handleClick} className="logout_button">
+                Logout
+              </button>
             </div>
           )}
         </div>
