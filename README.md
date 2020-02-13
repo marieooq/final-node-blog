@@ -1,4 +1,6 @@
-# midterm-team-c-bloggu-1
+# Node-blog
 
-### Wireframe
-[Figma Wireframe](https://www.figma.com/file/jtcLk75sv6UgYgi1WeRFXG/Bloggu-Wireframe?node-id=0%3A1)
+### Node CRUD blog
+-Front-end: React
+-Back-end: Node.js
+-DB: Mongo
