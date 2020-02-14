@@ -1,31 +1,39 @@
-import React, { useState } from "react";
-import Header from "./Header";
-import "./Signup.scss";
-import { api } from "../api";
+import React, { useState } from 'react';
+import Header from './Header';
+import './Signup.scss';
+import { api } from '../api';
 
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import { withRouter } from "react-router-dom";
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import { withRouter } from 'react-router-dom';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import Footer from './Footer';
+
+const colortheme = createMuiTheme({
+  palette: {
+    primary: { main: '#fff' }
+  }
+});
 
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(3)
   },
   submit: {
@@ -44,21 +52,22 @@ const Signup = props => {
 
   const signupForm = async event => {
     event.preventDefault();
-    await api.post("/signup", {
-      firstName: userFirstName,
-      lastName: userLastName,
-      email: userEmail,
-      password: userPass,
-      displayPicture: userPic
-    })
-    .then(function (response) {
-      console.log(response);
-      localStorage.setItem("user", JSON.stringify(response.data.user));
-    })
-    .catch(function (error) {
-        console.log("Sign Up Error: ", error);
-    });
-    props.history.push("/");
+    await api
+      .post('/signup', {
+        firstName: userFirstName,
+        lastName: userLastName,
+        email: userEmail,
+        password: userPass,
+        displayPicture: userPic
+      })
+      .then(function(response) {
+        console.log(response);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+      })
+      .catch(function(error) {
+        console.log('Sign Up Error: ', error);
+      });
+    props.history.push('/');
   };
 
   return (
@@ -70,9 +79,11 @@ const Signup = props => {
           <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
-              <Typography component="h1" variant="h5">
-                Sign up
-              </Typography>
+              <MuiThemeProvider theme={colortheme}>
+                <Typography component="h1" variant="h5" color="primary">
+                  Sign up
+                </Typography>
+              </MuiThemeProvider>
               <form className={classes.form} onSubmit={signupForm}>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
@@ -145,6 +156,7 @@ const Signup = props => {
             <Box mt={5}></Box>
           </Container>
         </div>
+        <Footer />
       </div>
     </div>
   );

@@ -12,6 +12,14 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { withRouter } from 'react-router-dom';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import Footer from './Footer';
+
+const colortheme = createMuiTheme({
+  palette: {
+    primary: { main: '#fff' }
+  }
+});
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -68,9 +76,11 @@ const Signin = props => {
           <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
-              <Typography component="h1" variant="h5">
-                Sign in
-              </Typography>
+              <MuiThemeProvider theme={colortheme}>
+                <Typography component="h1" variant="h5" color="primary">
+                  Sign in
+                </Typography>
+              </MuiThemeProvider>
               <form className={classes.form} onSubmit={signinForm}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
@@ -111,6 +121,7 @@ const Signin = props => {
             <Box mt={5}></Box>
           </Container>
         </div>
+        <Footer />
       </div>
     </div>
   );
