@@ -30,7 +30,7 @@ const HomePage = () => {
       <div className="home_header">
         <div className="home_header_inner">
           <a href="/" id="logo">
-            YOUR ART
+            ART BOARD
           </a>
         </div>
       </div>

@@ -16,12 +16,25 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import {
+  createMuiTheme,
+  MuiThemeProvider,
+  ThemeProvider
+} from '@material-ui/core/styles';
 
 import Header from './Header';
+import Footer from './Footer';
+
+const colortheme = createMuiTheme({
+  palette: {
+    primary: { main: '#fff' },
+    secondary: { main: '#03a9f4', contrastText: '#fff' }
+  }
+});
 
 const postHeaderStyle = {
   height: '50vh',
-  backgroundImage: `url("https://images.unsplash.com/photo-1573718893672-86144926f4fb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3900&q=80")`,
+  backgroundImage: `url("https://images.unsplash.com/photo-1493210977798-4f655ac200a9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1462&q=80")`,
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
   position: 'relative',
@@ -54,18 +67,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const categoriesArr = [
-  'Lifestyle',
-  'Food',
-  'Travel',
-  'Movie',
-  'Photography',
-  'Social Media',
-  'Pets',
-  'Technology',
-  'Fashion',
-  'Beauty'
-];
+const categoriesArr = ['Art', 'Event', 'Museum'];
 const options = categoriesArr.map(category => (
   <MenuItem value={category}>{category}</MenuItem>
 ));
@@ -127,9 +129,11 @@ const Post = ({ history }) => {
             <Container component="main" maxWidth="lg">
               <CssBaseline />
               <div className={classes.paper}>
-                <Typography component="h1" variant="h3">
-                  Write an Article
-                </Typography>
+                <MuiThemeProvider theme={colortheme}>
+                  <Typography component="h1" variant="h3" color="primary">
+                    Write an Article
+                  </Typography>
+                </MuiThemeProvider>
                 <form className={classes.form} onSubmit={postForm}>
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
@@ -141,6 +145,7 @@ const Post = ({ history }) => {
                         label="Title"
                         autoFocus
                         onChange={e => handleTitleChange(e.target.value)}
+                        color="primary"
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -195,7 +200,14 @@ const Post = ({ history }) => {
             </Container>
           </div>
         </div>
-        <footer>&copy; Copyright 2020. Team C</footer>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <Footer />
       </div>
     </div>
   );

@@ -8,7 +8,7 @@
 
   .post_section {
     min-height: 100vh;
-    background: white;
+    background-color: rgb(70, 69, 69);
     transform: translateZ(0);
     width: 100%;
     color: rgb(31, 31, 31);
@@ -27,17 +27,16 @@
         width: 994px;
 
         a {
-          color: blue;
+          color: rgb(148, 141, 247);
         }
       }
     }
-    footer{
+    footer {
       position: absolute;
       bottom: 0;
       width: 100%;
       padding: 50px;
       text-align: center;
-  }
+    }
   }
 }
-
