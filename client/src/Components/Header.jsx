@@ -17,8 +17,8 @@ const Header = props => {
   return (
     <nav>
       <div className="wrapper">
-        <a href="/">
-          <img className="logo" src={bloggu_logo} alt="logo" />
+        <a href="/" id="header_logo">
+          Talk about art
         </a>
         <div>
           {user === undefined ? (

@@ -5,6 +5,7 @@
 // $header-height: 50px;
 $image_home: 'https://images.unsplash.com/photo-1541367777708-7905fe3296c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1072&q=80';
 
+@import url('https://fonts.googleapis.com/css?family=DM+Serif+Text|Gochi+Hand|PT+Serif:700&display=swap');
 /**************************************************/
 
 .home_main {
@@ -25,6 +26,22 @@ $image_home: 'https://images.unsplash.com/photo-1541367777708-7905fe3296c0?ixlib
     vertical-align: top;
     transform-origin: center top;
     transform: translateZ(-#{0.5 * 2}px) scale(1 + 0.5 * 2);
+    position: relative;
+    .home_header_inner {
+      width: 994px;
+      margin: 0 auto;
+      a#logo {
+        color: #fff;
+        font-weight: 900;
+        font-size: 150px;
+        display: block;
+        position: absolute;
+        top: -63px;
+        font-family: 'Gochi Hand', cursive;
+        font-family: 'PT Serif', serif;
+        font-family: 'DM Serif Text', serif;
+      }
+    }
   }
 
   .home_section {
@@ -167,6 +184,5 @@ $image_home: 'https://images.unsplash.com/photo-1541367777708-7905fe3296c0?ixlib
         }
       }
     }
-
   }
 }

@@ -27,7 +27,13 @@ const HomePage = () => {
 
   return (
     <div className="home_main">
-      <div className="home_header"></div>
+      <div className="home_header">
+        <div className="home_header_inner">
+          <a href="/" id="logo">
+            YOUR ART
+          </a>
+        </div>
+      </div>
       <div className="home_section">
         <Header />
         <div className="home_main_wrapper">
